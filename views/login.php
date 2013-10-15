@@ -47,7 +47,7 @@
 	if(isset($_POST['login'])){
 		include '../db/db.php';
 
-		$db = new Database();	//user defined database class from db.php;
+		//$db = new Database();	//user defined database class from db.php;
 
 		 //$user is false if login is unsuccessful
 		if($user = $db->login($_POST['username'],sha1($_POST['password']))){

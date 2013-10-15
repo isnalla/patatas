@@ -1,5 +1,3 @@
-<?php echo $_SESSION["name"];?>
-
 <!DOCTYPE html>
 <html>
     <head>
