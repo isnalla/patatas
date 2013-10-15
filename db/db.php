@@ -61,5 +61,24 @@
             //returns an array of users
             return mysqli_fetch_all($this->result, MYSQLI_ASSOC);
         }
+
+        function get_department(){
+            $this->connect();
+
+            $this->query = "SELECT * FROM department ";
+            $this->result = mysqli_query($this->conn,$this->query);
+
+
+            $this->close();
+            echo json_encode(mysqli_fetch_all($this->result, MYSQLI_ASSOC));
+
+        }
+        function asd(){
+            var_dump("Asdf");
+        }
 	}
+
+    $db = new Database();
+    $method_name = $_POST['method'];
+    $db->{$method_name}();
 ?>
