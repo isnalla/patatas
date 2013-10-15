@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title> EF5L SystemTwo</title>
-		<link rel="stylesheet" type="text/css" href="css/project.css" />
+		<link rel="stylesheet" type="text/css" href="../css/project.css" />
 	</head>
 	<body>
 		<!-- HEADER START -->
@@ -45,7 +45,7 @@
 	}
 
 	if(isset($_POST['login'])){
-		include 'db/db.php';
+		include '../db/db.php';
 
 		$db = new Database();	//user defined database class from db.php;
 

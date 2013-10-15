@@ -16,13 +16,13 @@
 	<body>
 		<?php
 			//display appropriate dashboard according to role
-			if($_SESSION['role'] == "Lecturer")
+			if($_SESSION['role'] == "LEC")
 				include "dashboard/lecturer.php";
-			else if($_SESSION['role'] == "Department Head")
+			else if($_SESSION['role'] == "DPH")
 				include "dashboard/depthead.php";
-			else if($_SESSION['role'] == "College Secretary")
+			else if($_SESSION['role'] == "CLS")
 				include "dashboard/collegesec.php";
-			else if($_SESSION['role'] == "Student")
+			else if($_SESSION['role'] == "STD")
 				include "dashboard/student.php";
 		?>
 		<br />
