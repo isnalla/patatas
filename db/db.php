@@ -47,5 +47,19 @@
                 return mysqli_fetch_assoc($this->result);
             }
 		}
+
+        function get_gradesheets(){
+            $this->connect();
+
+            $this->query = "SELECT * FROM user";
+
+            $this->result = mysqli_query($this->conn,$this->query);
+
+            //var_dump(mysqli_fetch_all($this->result, MYSQLI_ASSOC));
+            $this->close();
+
+            //returns an array of users
+            return mysqli_fetch_all($this->result, MYSQLI_ASSOC);
+        }
 	}
 ?>
