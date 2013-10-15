@@ -51,7 +51,7 @@
         function get_gradesheets(){
             $this->connect();
 
-            $this->query = "SELECT * FROM user";
+            $this->query = "SELECT * FROM gradesheet ORDER BY lecturer";
 
             $this->result = mysqli_query($this->conn,$this->query);
 
