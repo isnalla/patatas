@@ -27,6 +27,13 @@
             echo $res;
         }
 
+        function insert_grade($data){
+            $db = new Database();
+            $res = $db->insert_grade($data);
+
+            echo $res;
+        }
+
     }
 
     $lec = new Lecturer();

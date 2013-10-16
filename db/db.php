@@ -124,6 +124,18 @@
             echo json_encode(mysqli_fetch_all($this->result, MYSQLI_ASSOC));
         }
 
+        function insert_grade($data){
+            $this->connect();
+
+            $this->query = "INSERT INTO grades VALUES ('{$data['Lecturer']}','{$data['Student_no']}','{$data['Course_code']}','{$data['Section']}','{$data['Grade']}','{$data['Remarks']}')";
+
+            mysqli_query($this->conn,$this->query);
+
+            $this->close();
+
+            echo $this->query;
+        }
+
         function insert_gradesheet($course_code,$section,$grades){
 
             $this->connect();

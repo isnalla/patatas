@@ -25,15 +25,14 @@ if(isset($_POST['submit'])){
 ?>
 
     <br />
-    <p>Hello, <?php echo $_SESSION['name']?>!</p>
+    Hello, <p id="lecturer_name"><?php echo $_SESSION['name']?></p>
     <br />
 
     <h3>Gradesheets submitted</h3>
     <div id="gradesheets_container"></div>
-    <h3 id="grades_info"></h3>
+    <h3 id="subject"></h3>
+    <h3 id="section"></h3>
     <div id="grades_container"></div>
-
-
 
     <!-- yung enctype para yan mapunta sa $_FILES ung info ng gustong iupload na file -->
     <h3> Create a Grade Sheet</h3>
@@ -63,8 +62,13 @@ if(isset($_POST['submit'])){
     <script>
         $(function(){
             show_gradesheets();
+            $('#submit_grade').on('click',add_grade);
             $('#submit').on('click',show_gradesheets);
         });
+
+        function add_grade(){
+            alert("hello");
+        }
 
         function show_gradesheets(){
             $.post("/logic/lecturer.php",{'method':'get_gradesheets'},function(data){
@@ -106,14 +110,21 @@ if(isset($_POST['submit'])){
 
         function show_grades(section){
             //highlight row on click
+            var gradeDropdown =
+                "<select class=\"grade_dropdown\">" +
+                    "<option>1.0</option><option>1.25</option><option>1.5</option><option>1.75</option>" +
+                    "<option>2.0</option><option>2.25</option><option>2.5</option><option>2.75</option>" +
+                    "<option>3.0</option><option>4.0</option><option>5.0</option>" +
+                "</select>";
+            var data = {'section':section};
 
             var data = {'section':section,'name':'<?php echo $_SESSION['name'];?>'};
             $.post("/logic/lecturer.php",{'method':'get_grades','data':data},function(data){
 
                 data = JSON.parse(data);
-                console.log(data);
 
-                $("#grades_info").html(data[0].Course_code + " " + data[0].Section);
+                $("#subject").html(data[0].Course_code);
+                $("#section").html(data[0].Section);
 
                 $("#grades_container").html(
                     "<table id='grades_table' border = 1>" +
@@ -121,29 +132,63 @@ if(isset($_POST['submit'])){
                         "<th>Student No</th>" +
                         "<th>Grade</th>" +
                         "<th>Remarks</th>" +
-                        "<td><input type=\"button\" id=\"add_button\" value=\"Add Grade\" /></td>"+
+                        "<td><input type=\"button\" id=\"add_row_button\" value=\"Add Grade\" /></td>"+
                         "</tr>"
                 );
 
+                $("#add_row_button").on('click',function(){
+                    $("#grades_table tr:first").after(
+                        "<tr>" +
+                                "<td>"+
+                                "<input id=\"new_student_no\" type=\"text\" />" +
+                                "</td>"+
+                                "<td>"+ gradeDropdown.replace("<select","<select id=\"new_grade\"") + "</td>"+
+                                "<td>"+
+                                "<input id=\"new_remarks\" type=\"text\" />" +
+                                "</td>"+
+                                "<td>"+
+                                "<input type=\"button\" id=\"add_grade_button\" value=\"Add Grade\" />"+
+                                "<input type=\"button\" id=\"cancel_button\" value=\"X\" />"+
+                            "</td>"+
+                        "</tr>"
+                    );
+                    $('#add_grade_button').on('click',function(){
+                        var data = {
+                            'Lecturer': $('#lecturer_name').text(),
+                            'Student_no':$('#new_student_no').val(),
+                            'Course_code':$('#subject').text(),
+                            'Section':$('#section').text(),
+                            'Grade':$("#new_grade").val(),
+                            'Remarks':$('#new_remarks').val()
+                        };
+                        $.post("/logic/lecturer.php",{'method':'insert_grade','data':data});
+                        $('#grades_table tr')[1].remove();
+                        show_grades(data['Section']);
+                    });
+                    $('.cancel_button').on('click',function(){
+                        $('#grades_table tr')[1].remove();
+                    });
+                });
 
-                for(i = 0; i<data.length; i++)
+                for(i = 0; i<data.length; i++){
                     $("#grades_container > table").append(
                         "<tr>" +
                             "<td>" +
                             "<input type=\"text\" value=\""+data[i].Student_no+"\" />" +
                             "</td>" +
-                            "<td>" +
-                            "<input type=\"text\" value=\""+ data[i].Grade+"\" />" +
-                            "</td>" +
+                            "<td>" +gradeDropdown.replace("<option>"+data[i].Grade,"<option selected=\"true\">"+data[i].Grade)+"</td>" +
                             "<td>" +
                             "<input type=\"text\" value=\""+ data[i].Remarks+"\" />" +
                             "</td>" +
                             "<td>" +
-                                "<input type=\"button\" id=\"edit_button\" value=\"Save Changes\" />"+
-                                "<input type=\"button\" id=\"delete_button\" value=\"X\" />"+
+                                "<input type=\"button\" class=\"edit_button\" value=\"Save Changes\" />"+
+                                "<input type=\"button\" class=\"delete_button\" value=\"X\" />"+
                             "</td>" +
                             "</tr>"
                     );
+                }
+
+
 
                 $("#gradesheets_container > table").append("</table>");
 
