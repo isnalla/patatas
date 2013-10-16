@@ -7,6 +7,7 @@
 
 		//connects the duhhh
         function __construct(){
+            if(!isset($_SESSION))
             session_start();
         }
 		function connect(){
@@ -118,7 +119,7 @@
                 $student_no = $grades[$i]["student_no"];
                 $grade = $grades[$i]["grade"];
                 $remarks = $grades[$i]["remarks"];
-                $this->query .= "('{$lecturer}','{$student_no}','{$course_code}','{$grade}','${remarks}')";
+                $this->query .= "('{$lecturer}','{$student_no}','{$course_code}','{$section}','{$grade}','${remarks}')";
                 if($i+1 != count($grades))
                     $this->query .= ",";
             }

@@ -16,6 +16,6 @@
 	</head>
 	<body>
 		You have succesfully logged out. <br />
-		<a href="/project">Go to Homepage</a>
+		<a href="/">Go to Homepage</a>
 	</body>
 </html>
