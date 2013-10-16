@@ -76,14 +76,15 @@
             }
 		}
 
-        function get_gradesheets(){
+        function get_gradesheets($data){
             $this->connect();
 
             $this->query = "SELECT * FROM gradesheet gs, department d, subject s
                             WHERE
                             gs.course_code = s.course_code AND
                             s.department = d.department_name AND
-                            d.department_head = '" . $_SESSION["name"] . "'
+                            d.department_head = '" . $_SESSION["name"] . "' AND
+                            gs.course_code LIKE '%" . $data['course_code'] . "%'
                             ORDER BY lecturer";
 
             $this->result = mysqli_query($this->conn,$this->query);
@@ -165,6 +166,20 @@
 
             return json_encode(mysqli_fetch_all($this->result, MYSQLI_ASSOC));
 
+        }
+
+        function update_gradesheet($data){
+            $this->connect();
+
+            $this->query = "UPDATE gradesheet SET status ='" . $data['status'] . "'
+                            WHERE
+                            course_code = '" . $data['course_code'] . "' AND
+                            section = '" . $data['section'] . "'"; //-----------------------EDIT NEXT
+            $this->result = mysqli_query($this->conn,$this->query);
+
+            $this->close();
+
+            return json_encode(mysqli_fetch_all($this->result, MYSQLI_ASSOC));
         }
 	}
      $db = new Database();

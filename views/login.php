@@ -50,6 +50,7 @@
 		$db = new Database();	//user defined database class from db.php;
 
 		 //$user is false if login is unsuccessful
+        $db = new Database();
 		if($user = $db->login($_POST['username'],sha1($_POST['password']))){
 				$_SESSION['logged_in'] = true;
 				$_SESSION['role'] = $user['role'];
