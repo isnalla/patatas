@@ -6,6 +6,9 @@
 		private $result;
 
 		//connects the duhhh
+        function __construct(){
+            session_start();
+        }
 		function connect(){
 			$this->conn = mysqli_connect("localhost","root","","ogsps") or die("Error Connecting: " . mysqli_error($this->conn));
 		}
@@ -51,30 +54,25 @@
         function get_gradesheets(){
             $this->connect();
 
-            $this->query = "SELECT * FROM gradesheet ORDER BY lecturer";
+            $this->query = "SELECT * FROM gradesheet ORDER BY lecturer WHERE ";
 
             $this->result = mysqli_query($this->conn,$this->query);
 
             //var_dump(mysqli_fetch_all($this->result, MYSQLI_ASSOC));
-            $this->close();
 
-            //returns an array of users
-            return mysqli_fetch_all($this->result, MYSQLI_ASSOC);
+            $this->close();
+            echo json_encode(mysqli_fetch_all($this->result, MYSQLI_ASSOC));
         }
 
         function get_department(){
             $this->connect();
 
-            $this->query = "SELECT * FROM department ";
+            $this->query = "SELECT * FROM department WHERE department_head = '" . $_SESSION['name'] . "'";
             $this->result = mysqli_query($this->conn,$this->query);
-
 
             $this->close();
             echo json_encode(mysqli_fetch_all($this->result, MYSQLI_ASSOC));
 
-        }
-        function asd(){
-            var_dump("Asdf");
         }
 	}
 
