@@ -13,7 +13,7 @@
             include("../db/db.php");
         }
 
-       function get_gradesheets(){
+        function get_gradesheets(){
             $db = new Database();
             $res = $db->get_gradesheets_by_lecturer();
 
@@ -24,12 +24,19 @@
             $db = new Database();
             $res = $db->get_grades($data);
 
-            echo $res;
+          echo $res;
         }
 
         function insert_grade($data){
             $db = new Database();
             $res = $db->insert_grade($data);
+
+            echo $res;
+        }
+
+        function delete_grade($data){
+            $db = new Database();
+            $res = $db->delete_grade($data);
 
             echo $res;
         }

@@ -136,8 +136,22 @@
             echo $this->query;
         }
 
-        function insert_gradesheet($course_code,$section,$grades){
+        function delete_grade($data){
+            $this->connect();
 
+            $this->query = "DELETE FROM grades WHERE lecturer='{$data['Lecturer']}'".
+                           " AND student_no = '{$data['Student_no']}'".
+                           " AND course_code = '{$data['Course_code']}'".
+                           " AND section = '{$data['Section']}'";
+
+            mysqli_query($this->conn, $this->query);
+
+            $this->close();
+
+            echo $this->query;
+        }
+
+        function insert_gradesheet($course_code,$section,$grades){
             $this->connect();
 
             $lecturer = $_SESSION['name'];

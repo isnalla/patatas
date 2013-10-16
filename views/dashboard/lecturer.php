@@ -171,27 +171,42 @@ if(isset($_POST['submit'])){
                 });
 
                 for(i = 0; i<data.length; i++){
-                    $("#grades_container > table").append(
+                    $("#grades_table").append(
                         "<tr>" +
                             "<td>" +
-                            "<input type=\"text\" value=\""+data[i].Student_no+"\" />" +
+                            "<input type=\"text\"  value=\""+data[i].Student_no+"\" />" +
                             "</td>" +
                             "<td>" +gradeDropdown.replace("<option>"+data[i].Grade,"<option selected=\"true\">"+data[i].Grade)+"</td>" +
                             "<td>" +
                             "<input type=\"text\" value=\""+ data[i].Remarks+"\" />" +
                             "</td>" +
                             "<td>" +
-                                "<input type=\"button\" class=\"edit_button\" value=\"Save Changes\" />"+
-                                "<input type=\"button\" class=\"delete_button\" value=\"X\" />"+
+                                "<input type=\"button\" id=\"edit_button"+(i+1)+"\" class=\"edit_button\" value=\"Save Changes\" />"+
+                                "<input type=\"button\" id=\"delete_button"+(i+1)+"\" class=\"delete_button\" value=\"X\" />"+
                             "</td>" +
                             "</tr>"
                     );
+
+                    $('#delete_button'+(i+1)).on('click',function(){
+
+                        //console.log($(this).parent().parent().html());
+
+                        var data = {
+                            'Lecturer': $('#lecturer_name').text(),
+                            'Student_no':$('#student_no'+(i+1)).val(),
+                            'Course_code':$('#subject').text(),
+                            'Section':$('#section').text()
+                        };
+                        $.post("/logic/lecturer.php",{'method':'delete_grade','data':data},function(data){
+
+
+                            //console.log(data);
+                        });
+                        show_grades(data['Section']);
+                    });
                 }
 
-
-
                 $("#gradesheets_container > table").append("</table>");
-
             });
         }
     </script>
