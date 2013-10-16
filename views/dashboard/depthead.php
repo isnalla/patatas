@@ -18,33 +18,52 @@
 
         function search_gradesheet(){
             console.log("ASDF");
-            $.post("/db/db.php", {'method':'get_gradesheets'},function(data){
+            $.post("/logic/depthead.php/",{'method':'get_gradesheets'},function(data){
 
-                console.log(data);
                 data = JSON.parse(data);
+                console.log(data);
+
                 $("#gradesheets_container").html(
-                    data[0].Department_name
+                    "<table border = 1>" +
+                        "<tr>" +
+                            "<td>" +
+                            "<h3" +
+                        "> SUBJECT </h3>" +
+                            "</td>" +
+                            "<td>" +
+                            "<h3> SECTION </h3>" +
+                            "</td>" +
+                            "<td>" +
+                            "<h3> LECTURER</h3>" +
+                            "</td>" +
+                            "<td>" +
+                            "<h3> STATUS</h3>" +
+                            "</td>" +
+                        "</tr>"
                 );
 
-                $("#gradesheets_container").html("");
 
                 for(i = 0, j = data.length; i<j; i++)
-                $("#gradesheets_container").append(
-                    "<tr>" +
-                        "<td>" +
-                        data[i].Course_code +
-                        "<td>" +
-                        "<td>" +
-                        data[i].Section +
-                        "<td>" +
-                        "<td>" +
-                        data[i].Lecturer +
-                        "<td>" +
-                        "<td>" +
-                        data[i].Status +
-                        "<td>" +
-                    "<tr>"
-                );
+                    $("#gradesheets_container > table").append(
+                        "<tr>" +
+                            "<td>" +
+                            data[i].Course_code +
+                            "</td>" +
+                            "<td>" +
+                            data[i].Section +
+                            "</td>" +
+                            "<td>" +
+                            data[i].Lecturer +
+                            "</td>" +
+                            "<td>" +
+                            data[i].Status +
+                            "</td>" +
+                        "</tr>"
+                    );
+
+                $("#gradesheets_container > table").append("</table>");
+
+
 
 //add grades to the gradesheet table
                 //make it hidden at first and could be shown when clicked like in toggleable asdfasdf

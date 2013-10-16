@@ -79,7 +79,12 @@
         function get_gradesheets(){
             $this->connect();
 
-            $this->query = "SELECT * FROM gradesheet ORDER BY lecturer WHERE ";
+            $this->query = "SELECT * FROM gradesheet gs, department d, subject s
+                            WHERE
+                            gs.course_code = s.course_code AND
+                            s.department = d.department_name AND
+                            d.department_head = '" . $_SESSION["name"] . "'
+                            ORDER BY lecturer";
 
             $this->result = mysqli_query($this->conn,$this->query);
 
@@ -143,14 +148,13 @@
             $this->result = mysqli_query($this->conn,$this->query);
 
             $this->close();
-            echo json_encode(mysqli_fetch_all($this->result, MYSQLI_ASSOC));
+
+            return json_encode(mysqli_fetch_all($this->result, MYSQLI_ASSOC));
 
         }
 	}
 
-    $db = new Database();
-
     //nageeror kase tsaka di ko alam kung para saan to kaya cinomment out ko muna
-    //$method_name = $_POST['method'];
+   // $method_name = $_POST['method'];
     //$db->{$method_name}();
 ?>
