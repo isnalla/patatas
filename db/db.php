@@ -95,10 +95,10 @@
         }
 
         //wala atang overloading sa php =____= so ganito na lang
-        function get_gradesheets_by_lecturer($lecturer){
+        function get_gradesheets_by_lecturer(){
             $this->connect();
 
-            $this->query = "SELECT * FROM gradesheet WHERE lecturer = '{$lecturer}'";
+            $this->query = "SELECT * FROM gradesheet WHERE lecturer = '".$_SESSION['name']."'";
 
             $this->result = mysqli_query($this->conn,$this->query);
 
@@ -106,7 +106,21 @@
             $this->close();
 
             //returns an array of users
-            return mysqli_fetch_all($this->result, MYSQLI_ASSOC);
+            echo json_encode(mysqli_fetch_all($this->result, MYSQLI_ASSOC));
+        }
+
+        function get_grades($data){
+            $this->connect();
+
+            $this->query = "SELECT * FROM grades WHERE lecturer = '".$_SESSION['name']."' AND section = '".$data['section']."'";
+
+            $this->result = mysqli_query($this->conn,$this->query);
+
+            //var_dump(mysqli_fetch_all($this->result, MYSQLI_ASSOC));
+            $this->close();
+
+            //returns an array of users
+            echo json_encode(mysqli_fetch_all($this->result, MYSQLI_ASSOC));
         }
 
         function insert_gradesheet($course_code,$section,$grades){
@@ -153,7 +167,7 @@
 
         }
 	}
-
+     $db = new Database();
     //nageeror kase tsaka di ko alam kung para saan to kaya cinomment out ko muna
    // $method_name = $_POST['method'];
     //$db->{$method_name}();
