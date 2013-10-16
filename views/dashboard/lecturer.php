@@ -30,7 +30,8 @@ if(isset($_POST['submit'])){
 
     <h3>Gradesheets submitted</h3>
     <div id="gradesheets_container"></div>
-    <h3 id="grades_info"></h3>
+    <h3 id="subject"></h3>
+    <h3 id="section"></h3>
     <div id="grades_container"></div>
 
     <!-- yung enctype para yan mapunta sa $_FILES ung info ng gustong iupload na file -->
@@ -192,7 +193,7 @@ if(isset($_POST['submit'])){
 
                     $('#delete_button'+(i+1)).on('click',function(){
 
-                        //console.log($(this).parent().parent().html());
+                        //  console.log($(this).parent().parent().html());
 
                         var data = {
                             'Lecturer': $('#lecturer_name').text(),
