@@ -84,7 +84,8 @@
                             gs.course_code = s.course_code AND
                             s.department = d.department_name AND
                             d.department_head = '" . $_SESSION["name"] . "' AND
-                            gs.course_code LIKE '%" . $data['course_code'] . "%'
+                            gs.course_code LIKE '%" . $data['course_code'] . "%' AND
+                            gs.status = '". $data['status'] ."'
                             ORDER BY lecturer";
 
             $this->result = mysqli_query($this->conn,$this->query);

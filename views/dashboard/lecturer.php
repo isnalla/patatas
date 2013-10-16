@@ -25,13 +25,12 @@ if(isset($_POST['submit'])){
 ?>
 
     <br />
-    Hello, <p id="lecturer_name"><?php echo $_SESSION['name']?></p>
+    <p>Hello, <?php echo $_SESSION['name']?>!</p>
     <br />
 
     <h3>Gradesheets submitted</h3>
     <div id="gradesheets_container"></div>
-    <h3 id="subject"></h3>
-    <h3 id="section"></h3>
+    <h3 id="grades_info"></h3>
     <div id="grades_container"></div>
 
     <!-- yung enctype para yan mapunta sa $_FILES ung info ng gustong iupload na file -->
@@ -60,6 +59,7 @@ if(isset($_POST['submit'])){
     </form>
 
     <script>
+        var gradesheets;
         $(function(){
             show_gradesheets();
             $('#submit_grade').on('click',add_grade);
@@ -74,6 +74,7 @@ if(isset($_POST['submit'])){
             $.post("/logic/lecturer.php",{'method':'get_gradesheets'},function(data){
 
                 data = JSON.parse(data);
+                gradesheets = data;
 
                 $("#gradesheets_container").html(
                     "<table id=\"gradesheets_table\" border = 1>" +
@@ -122,6 +123,8 @@ if(isset($_POST['submit'])){
             $.post("/logic/lecturer.php",{'method':'get_grades','data':data},function(data){
 
                 data = JSON.parse(data);
+                console.log(data);
+                $("#grades_info").html(data[0].Course_code + " " + data[0].Section);
 
                 $("#subject").html(data[0].Course_code);
                 $("#section").html(data[0].Section);
