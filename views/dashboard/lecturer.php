@@ -107,11 +107,11 @@ if(isset($_POST['submit'])){
         function show_grades(section){
             //highlight row on click
 
-            var data = {'section':section};
+            var data = {'section':section,'name':'<?php echo $_SESSION['name'];?>'};
             $.post("/logic/lecturer.php",{'method':'get_grades','data':data},function(data){
 
                 data = JSON.parse(data);
-                //console.log(data);
+                console.log(data);
 
                 $("#grades_info").html(data[0].Course_code + " " + data[0].Section);
 

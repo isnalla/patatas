@@ -113,7 +113,7 @@
         function get_grades($data){
             $this->connect();
 
-            $this->query = "SELECT * FROM grades WHERE lecturer = '".$_SESSION['name']."' AND section = '".$data['section']."'";
+            $this->query = "SELECT * FROM grades WHERE lecturer = '".$data['name']."' AND section = '".$data['section']."'";
 
             $this->result = mysqli_query($this->conn,$this->query);
 
