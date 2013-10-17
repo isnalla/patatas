@@ -130,7 +130,8 @@ if(isset($_POST['submit'])){
                     "<th>Grade</th>" +
                     "<th>Remarks</th>" +
                     "<td><input type=\"button\" id=\"add_row_button\" value=\"Add Grade\" /></td>"+
-                    "</tr>"
+                    "</tr>"+
+                "</table>"
             );
 
             //add new table row on click of a button
@@ -177,7 +178,7 @@ if(isset($_POST['submit'])){
 
                 for(i = 0; i<data.length; i++){
                     $("#grades_table").append(
-                        "<tr>" +
+                        "<tr clicked=\"false\">" +
                             "<td>" +
                             "<input type=\"text\"  value=\""+data[i].Student_no+"\" />" +
                             "</td>" +
@@ -186,8 +187,8 @@ if(isset($_POST['submit'])){
                             "<input type=\"text\" value=\""+ data[i].Remarks+"\" />" +
                             "</td>" +
                             "<td>" +
-                                "<input type=\"button\" id=\"edit_button"+(i+1)+"\" class=\"edit_button\" value=\"Save Changes\" />"+
-                                "<input type=\"button\" id=\"delete_button"+(i+1)+"\" class=\"delete_button\" value=\"X\" />"+
+                                "<input type=\"button\" id=\"edit_button"+(i+1)+"\" class=\"edit_button\" value=\"Save Changes\" hidden='true' />"+
+                                "<input type=\"button\" id=\"delete_button"+(i+1)+"\" class=\"delete_button\" value=\"X\" hidden='true' />"+
                             "</td>" +
                             "</tr>"
                     );
@@ -199,14 +200,25 @@ if(isset($_POST['submit'])){
                             'Course_code':$('#subject').text(),
                             'Section':$('#section').text()
                         };
-                        $.post("/logic/lecturer.php",{'method':'delete_grade','data':data},function(data){
-                            console.log(data);
-                        });
+                        $.post("/logic/lecturer.php",{'method':'delete_grade','data':data});
                         show_grades(data['Section']);
                     });
                 }
 
-                $("#gradesheets_container > table").append("</table>");
+                //event for showing buttons onclick per row
+                var rows = $('#grades_table').find('tr').next();
+                rows.on('click',function(){
+                    if(!$(this)[0].clicked){
+                        $(this).find('input[type="button"]').show(function(){/*insert animation here*/});
+                        $(this)[0].clicked = true;
+                    }
+                });
+
+                rows.on('focusout',function(data){
+                    //$(this).
+                    //$(this).find('input[type="button"]').hide(function(){/*insert animation here*/});
+                    //show_grades($(this).attr('value'));
+                });
             });
         }
     </script>
