@@ -4,7 +4,7 @@
 		<title> EF5L SystemTwo</title>
         <link rel="stylesheet" type="text/css" href="/css/reset.css" />
         <link rel="stylesheet" type="text/css" href="/css/project.css" />
-	</head>
+    </head>
 	<body>
 		<!-- HEADER START -->
         <div id="homepage-container">
@@ -24,11 +24,61 @@
 				</div>
                 <button type="submit" class="submit-button" id="login" name="login" value="login" />Log In</button>
 			</form>
+            <div id="hr"></div>
 		</div>
 		<!-- HEADER END -->
 		<!-- CONTENT START -->
-		<div id="index-content" name="content">	
-			
+		<div id="index-content" name="content">
+            <div class="article-header">
+                <div>
+                    <img src = "/img/article_header_1.png"/>
+                </div>
+            </div>
+            <div class="article-body">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing
+                    elit. Donec ante augue, pretium sed lectus id,
+                    consectetur fermentum tellus. Praesent semper, orci vel
+                    ultricies fringilla, mauris erat tempor ipsum, molestie
+                    mattis enim nisi non nulla. Suspendisse consectetur
+                    accumsan leo, quis luctus ipsum sollicitudin vitae.
+                    Maecenas accumsan turpis suscipit viverra sodales. Etiam
+                    hendrerit, turpis non ullamcorper gravida, dui libero
+                    aliquet libero, at iaculis lacus odio sed diam. Aenean
+                    tristique magna vitae orci aliquam tempus. Maecenas
+                    accumsan sed ipsum quis ullamcorper. Cras vel
+                    commodo neque. Praesent non ligula faucibus, sagittis
+                    arcu vel, commodo arcu. Mauris eros massa, vestibulum a
+                    lorem a, sodales luctus urna. In vitae leo id sapien
+                    vulputate elementum non ut turpis. Integer gravida
+                    tellus dui, quis posuere diam ultricies ac.
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing
+                    elit. Donec ante augue, pretium sed lectus id,
+                    consectetur fermentum tellus. Praesent semper, orci vel
+                    ultricies fringilla, mauris erat tempor ipsum, molestie
+                    mattis enim nisi non nulla. Suspendisse consectetur
+                    accumsan leo, quis luctus ipsum sollicitudin vitae.
+                    Maecenas accumsan turpis suscipit viverra sodales. Etiam
+                    hendrerit, turpis non ullamcorper gravida, dui libero
+                    aliquet libero, at iaculis lacus odio sed diam. Aenean
+                    tristique magna vitae orci aliquam tempus. Maecenas
+                    accumsan sed ipsum quis ullamcorper.
+                </p>
+                <p>
+                    Maecenas accumsan turpis suscipit viverra sodales. Etiam
+                    hendrerit, turpis non ullamcorper gravida, dui libero
+                    aliquet libero, at iaculis lacus odio sed diam. Aenean
+                    tristique magna vitae orci aliquam tempus. Maecenas
+                    accumsan sed ipsum quis ullamcorper. Cras vel
+                    commodo neque. Praesent non ligula faucibus, sagittis
+                    arcu vel, commodo arcu. Mauris eros massa, vestibulum a
+                    lorem a, sodales luctus urna. In vitae leo id sapien
+                    vulputate elementum non ut turpis. Integer gravida
+                    tellus dui, quis posuere diam ultricies ac.
+                </p>
+            </div>
 		</div>
 		<!-- CONTENT END -->
 		<!-- FOOTER START -->

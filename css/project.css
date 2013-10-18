@@ -3,17 +3,24 @@ body{
 }
 
 #homepage-container{
-    width:75%;
+    width:76%;
     margin:0 auto;
-    background:#f8f8f8;
+    background:#f2efe7;
     height:768px;
 }
+
 #index-header{
     font-family:Gulim;
     font-size:13px;
     width:100%;
     height:80px;
+}
 
+#hr{
+    background:#30c0ef;
+    width: 100%;
+    height:5px;
+    float:left;
 }
 
 #index-header img{
@@ -52,10 +59,145 @@ body{
     float:left;
 }
 
+#index-content{
+    margin-top:45px;
+    width: 50%;
+}
+
+#index-content .article-header{
+    background:#f8f8f8;
+    width: 100%;
+    height:80px;
+
+    margin-bottom:15px;
+
+
+}
+
+#index-content > .article-header > div{
+    width:75%;
+    margin:0 auto;
+    padding: 8px;
+}
+
+#index-content .article-header > div > img{
+    width:100%;
+    max-heght:100%;
+}
+
+#index-content .article-body{
+    background:#f8f8f8;
+    padding:30px;
+    font:justify;
+    text-align: justify;
+}
+
+#index-content p{
+    font-size:12px;
+    font-family:'Lucida Grande', Tahoma, Verdana, Arial, sans-serif;;
+    margin-bottom:20px;
+}
 
 
 /*------------------------------- Button ----------------------------------*/
 .submit-button{
     color:white;
     background:#145d72;
+}
+/*-------------------------------------------------------------------------*/
+
+/*--------------------------------Header-----------------------------------*/
+#header{
+    height:50px;
+    background:#145d72;
+}
+
+#user-name{
+    float:left;
+    color:white;
+    font-family:Gulim;
+    font-size:14px;
+    font-weight:bold;
+    margin-top:16px;
+}
+#user-name{
+
+}
+
+#user-options-container{
+
+    position:relative;
+    width:35px;
+    height:40px;
+    padding:5px;
+    margin-top:0px;
+    border-left:1px #31c3f3 solid;
+    border-right:1px #31c3f3 solid;
+}
+
+#option-trigger, #user-options{
+    padding:0;
+    height:100%;
+}
+
+#user-options-container{
+    background-image: url("/img/menu-arrow.png");
+    background-repeat: no-repeat;
+    background-position:center;
+}
+
+#user-options-container:hover{
+    background:#4ca5dd;
+    background-image: url("/img/menu-arrow-hover.png");
+    background-repeat: no-repeat;
+    background-position:center;
+}
+#menu{
+    font-family:Tahoma;
+    color:white;
+    background:#145d72;
+    padding:5px;
+}
+
+#menu a{
+    color:white;
+    text-decoration: none;
+}
+
+#menu li {
+    list-style-type: none;
+    padding:5px;
+
+}
+#menu li:hover{
+    background:#31c3f3;
+    list-style-type: none;
+
+}
+
+#header > #logo-container >img{
+    margin:13px 0px 0px 170px;
+}
+
+/*-------------------------------------------------------------------------*/
+
+
+
+/*--------------------------- Department Head -----------------------------*/
+
+
+
+/*-------------------------------------------------------------------------*/
+
+
+.container4 {
+    margin: 20px 30px 10px 30px ;
+    padding: 4px;
+    display: inline-block;
+}
+
+.menu4 {
+    position: absolute;
+    width: 100px !important;
+    margin-top: 3px !important;
 }
