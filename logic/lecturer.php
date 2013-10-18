@@ -41,6 +41,13 @@
             echo $res;
         }
 
+        function update_grade($data){
+            $db = new Database();
+            $res = $db->update_grade($data);
+
+            echo $res;
+        }
+
     }
 
     $lec = new Lecturer();

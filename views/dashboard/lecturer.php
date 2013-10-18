@@ -187,23 +187,39 @@ if(isset($_POST['submit'])){
                             "<input type=\"text\" value=\""+ data[i].Remarks+"\" />" +
                             "</td>" +
                             "<td>" +
-                                "<input type=\"button\" id=\"edit_button"+(i+1)+"\" class=\"edit_button\" value=\"Save Changes\" hidden='true' />"+
+                                "<input type=\"button\" id=\"save_button"+(i+1)+"\" class=\"save_button\" value=\"Save Changes\" hidden='true' />"+
                                 "<input type=\"button\" id=\"delete_button"+(i+1)+"\" class=\"delete_button\" value=\"Delete\" hidden='true' />"+
                             "</td>" +
                             "</tr>"
                     );
-
-                    $('#delete_button'+(i+1)).on('click',function(){
-                        var data = {
-                            'Lecturer': $('#lecturer_name').text(),
-                            'Student_no':$(this).closest('tr').find('input').val(),
-                            'Course_code':$('#subject').text(),
-                            'Section':$('#section').text()
-                        };
-                        $.post("/logic/lecturer.php",{'method':'delete_grade','data':data});
-                        show_grades(data['Section']);
-                    });
                 }
+
+                $('.save_button').on('click',function(){
+                    var buttonRow = $(this).closest('tr');
+                    var data = {
+                        'Lecturer': $('#lecturer_name').text(),
+                        'Old_student_no': originalData.Student_no,
+                        'New_student_no': buttonRow.find('input').val(),
+                        'Course_code':$('#subject').text(),
+                        'Section':$('#section').text(),
+                        'Grade': buttonRow.find('select').val(),
+                        'Remarks': buttonRow.find('input')[1].value
+                    };
+
+                    $.post("/logic/lecturer.php",{'method':'update_grade','data':data});
+                    show_grades(data['Section']);
+                });
+
+                $('.delete_button').on('click',function(){
+                    var data = {
+                        'Lecturer': $('#lecturer_name').text(),
+                        'Student_no':$(this).closest('tr').find('input').val(),
+                        'Course_code':$('#subject').text(),
+                        'Section':$('#section').text()
+                    };
+                    $.post("/logic/lecturer.php",{'method':'delete_grade','data':data});
+                    show_grades(data['Section']);
+                });
 
                 //event for showing buttons onclick per row
                 var rows = $('#grades_table').find('tr').next();

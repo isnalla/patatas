@@ -148,8 +148,23 @@
             mysqli_query($this->conn, $this->query);
 
             $this->close();
+        }
 
-            echo $this->query;
+        function update_grade($data){
+            $this->connect();
+
+            $this->query = "UPDATE grades ".
+                                "SET student_no='{$data['New_student_no']}'".
+                                  ", grade='{$data['Grade']}'".
+                                  ", remarks='{$data['Remarks']}'".
+                           " WHERE lecturer='{$data['Lecturer']}'".
+                                " AND student_no = '{$data['Old_student_no']}'".
+                                " AND course_code = '{$data['Course_code']}'".
+                                " AND section = '{$data['Section']}'";
+
+            mysqli_query($this->conn, $this->query);
+
+            $this->close();
         }
 
         function insert_gradesheet($course_code,$section,$grades){
