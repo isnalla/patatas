@@ -19,7 +19,6 @@ if(isset($_POST['submit'])){
     }
     fclose($csv);
 
-    //var_dump($grades);
     $db->insert_gradesheet($course_code,$section,$grades);
 }
 ?>
@@ -107,8 +106,40 @@ if(isset($_POST['submit'])){
                 $('#gradesheets_table').find('tr').next().on('click',function(){
                     $('#subject').html($(this).find('td').html());
                     $('#section').html($(this).find('td').next().html());
-                    show_grades($(this).attr('value'));
+
+                    var section = $(this).attr('value');
+                    if($(this).find('td').next().next().html() == "APPROVED")
+                        show_grades_noneditable(section);
+                    else show_grades(section);
                 });
+            });
+        }
+
+        function show_grades_noneditable(section){
+            $("#grades_container").html(
+                "<table id='grades_table' border = 1>" +
+                    "<tr>" +
+                    "<th>Student No</th>" +
+                    "<th>Grade</th>" +
+                    "<th>Remarks</th>" +
+                    "</tr>"+
+                    "</table>"
+            );
+
+            var data = {'section':section,'name':'<?php echo $_SESSION['name'];?>'};
+            $.post("/logic/lecturer.php",{'method':'get_grades','data':data},function(data){
+
+                data = JSON.parse(data);
+
+                for(i = 0; i<data.length; i++){
+                    $("#grades_table").append(
+                        "<tr>" +
+                            "<td>" + data[i].Student_no + "</td>" +
+                            "<td>" + data[i].Grade + "</td>" +
+                            "<td>" + data[i].Remarks + "</td>" +
+                        "</tr>"
+                    );
+                }
             });
         }
 
@@ -169,8 +200,6 @@ if(isset($_POST['submit'])){
                 });
             });
 
-            var data = {'section':section};
-
             var data = {'section':section,'name':'<?php echo $_SESSION['name'];?>'};
             $.post("/logic/lecturer.php",{'method':'get_grades','data':data},function(data){
 
@@ -194,6 +223,7 @@ if(isset($_POST['submit'])){
                     );
                 }
 
+                //event handler for save button
                 $('.save_button').on('click',function(){
                     var buttonRow = $(this).closest('tr');
                     var data = {
@@ -210,6 +240,7 @@ if(isset($_POST['submit'])){
                     show_grades(data['Section']);
                 });
 
+                //event handler for delete button
                 $('.delete_button').on('click',function(){
                     var data = {
                         'Lecturer': $('#lecturer_name').text(),
@@ -251,8 +282,6 @@ if(isset($_POST['submit'])){
                 textInputs[1].value = originalData.Remarks;
             }
         }
-
-
     </script>
 <?php
     include("/includes/footer.php");

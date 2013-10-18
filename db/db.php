@@ -190,8 +190,7 @@
 
             //temporary error reporter
             if(mysqli_error($this->conn)){
-                echo "Upload failed!<br />";
-                echo mysqli_error($this->conn);
+                echo "<script>alert('Upload failed! Possible duplicate! (Temporary error reporter)');</script>";
             }
             else echo "Upload success!";
 

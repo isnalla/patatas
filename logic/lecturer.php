@@ -36,16 +36,12 @@
 
         function delete_grade($data){
             $db = new Database();
-            $res = $db->delete_grade($data);
-
-            echo $res;
+            $db->delete_grade($data);
         }
 
         function update_grade($data){
             $db = new Database();
-            $res = $db->update_grade($data);
-
-            echo $res;
+            $db->update_grade($data);
         }
 
     }

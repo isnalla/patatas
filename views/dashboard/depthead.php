@@ -39,8 +39,6 @@
 
                 data = JSON.parse(data);
                 gradesheets[index]= data;
-
-
                 show_gradesheets(container,index);
             });
 
