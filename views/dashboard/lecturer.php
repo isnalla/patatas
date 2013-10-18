@@ -180,11 +180,11 @@ if(isset($_POST['submit'])){
                     $("#grades_table").append(
                         "<tr>" +
                             "<td>" +
-                            "<input type=\"text\"  value=\""+data[i].Student_no+"\" />" +
+                            "<input type=\"text\"  value=\""+data[i].Student_no+"\" maxlength=\"10\" />" +
                             "</td>" +
                             "<td>" +gradeDropdown.replace("<option>"+data[i].Grade,"<option selected=\"true\">"+data[i].Grade)+"</td>" +
                             "<td>" +
-                            "<input type=\"text\" value=\""+ data[i].Remarks+"\" />" +
+                            "<input type=\"text\" value=\""+ data[i].Remarks+"\" maxlength=\"50\" />" +
                             "</td>" +
                             "<td>" +
                                 "<input type=\"button\" id=\"save_button"+(i+1)+"\" class=\"save_button\" value=\"Save Changes\" hidden='true' />"+
