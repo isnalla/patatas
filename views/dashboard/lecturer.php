@@ -114,7 +114,7 @@ if(isset($_POST['submit'])){
 
         function show_grades(section){
             //highlight row on click
-
+            var currentRow;
             var gradeDropdown =
                 "<select class=\"grade_dropdown\">" +
                     "<option>1.0</option><option>1.25</option><option>1.5</option><option>1.75</option>" +
@@ -178,7 +178,7 @@ if(isset($_POST['submit'])){
 
                 for(i = 0; i<data.length; i++){
                     $("#grades_table").append(
-                        "<tr clicked=\"false\">" +
+                        "<tr>" +
                             "<td>" +
                             "<input type=\"text\"  value=\""+data[i].Student_no+"\" />" +
                             "</td>" +
@@ -188,7 +188,7 @@ if(isset($_POST['submit'])){
                             "</td>" +
                             "<td>" +
                                 "<input type=\"button\" id=\"edit_button"+(i+1)+"\" class=\"edit_button\" value=\"Save Changes\" hidden='true' />"+
-                                "<input type=\"button\" id=\"delete_button"+(i+1)+"\" class=\"delete_button\" value=\"X\" hidden='true' />"+
+                                "<input type=\"button\" id=\"delete_button"+(i+1)+"\" class=\"delete_button\" value=\"Delete\" hidden='true' />"+
                             "</td>" +
                             "</tr>"
                     );
@@ -208,19 +208,28 @@ if(isset($_POST['submit'])){
                 //event for showing buttons onclick per row
                 var rows = $('#grades_table').find('tr').next();
                 rows.on('click',function(){
-                    if(!$(this)[0].clicked){
-                        $(this).find('input[type="button"]').show(function(){/*insert animation here*/});
-                        $(this)[0].clicked = true;
+                    if($(this).attr('clicked') == undefined || $(this).attr('clicked') == "false"){
+                        console.log('hello');
+                        var previousRow = $('#grades_table').find('tr[clicked="true"]');
+                        if(previousRow.length != 0){
+                            var rowButtons = previousRow.find('input[type="button"]');
+                            rowButtons.hide();
+                            previousRow.attr('clicked',false);
+                            cancelChanges(previousRow);
+                        }
+                        $(this).find('input[type="button"]').show();
+                        $(this).attr('clicked',true);
+                        currentRow = $(this);
                     }
                 });
-
-                rows.on('focusout',function(data){
-                    //$(this).
-                    //$(this).find('input[type="button"]').hide(function(){/*insert animation here*/});
-                    //show_grades($(this).attr('value'));
-                });
             });
+
+            function cancelChanges(previousRow){
+                console.log(previousRow);
+            }
         }
+
+
     </script>
 <?php
     include("/includes/footer.php");
