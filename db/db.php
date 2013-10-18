@@ -34,6 +34,25 @@
 			return mysqli_fetch_all($this->result, MYSQLI_ASSOC);
 		}
 
+        function register_student($username,$firstname,$surname){
+            $password = $surname;
+            $this->connect();
+
+            $this->query = "INSERT INTO user VALUES('STD','{$username}','{$surname}','".$firstname." ".$surname."')";
+
+            mysqli_query($this->conn,$this->query);
+
+            if(mysqli_error($this->conn)){
+                echo "<script>alert('Registration failed! Error: ".mysqli_error($this->conn)."'); </script>";
+            }
+            else{
+                echo "Registration successful! <a href=\"login.php\">Go back to login</a>";
+            }
+
+
+            $this->close();
+        }
+
         function get_subjects(){
             $this->connect();
 

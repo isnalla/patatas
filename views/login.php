@@ -35,6 +35,7 @@
                 </div>
             </div>
             <div class="article-body">
+                <a href="register.php" class="register" id="register" name="register" value="register" />Register</a>
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing
                     elit. Donec ante augue, pretium sed lectus id,
