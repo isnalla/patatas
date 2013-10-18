@@ -4,8 +4,6 @@
  * Date: 10/19/13
  * Time: 12:41 AM
  */
-    include '../db/db.php';
-
     if(isset($_POST['register'])){
 
         $db = new Database();
@@ -17,14 +15,7 @@
         $db->register_student($username,$firstname,$surname);
     }
 ?>
-<!DOCTYPE html>
 
-<html>
-    <head>
-        <title>Student registration</title>
-    </head>
-    <body>
-    <br/>
     Your student number will be your username.
     Your surname will be your password. Case sensitive.
     <form id="register-form" name="register-form" action="" method="post">
@@ -42,6 +33,3 @@
         </div>
         <button type="submit" class="submit-button" id="register" name="register" value="register">Register</button>
     </form>
-
-    </body>
-</html>

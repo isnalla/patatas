@@ -1,3 +1,35 @@
+<?php
+    session_start();
+
+    include '../db/db.php';
+
+    if(isset($_SESSION['logged_in'])){
+        header("Location: authorized.php");
+        exit;
+    }
+
+    if(isset($_POST['login'])){
+
+
+        //$user is false if login is unsuccessful
+        $db = new Database();
+        if($user = $db->login($_POST['username'],sha1($_POST['password']))){
+            $_SESSION['logged_in'] = true;
+            $_SESSION['role'] = $user['role'];
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['name'] = $user['name'];
+
+            header("Location: authorized.php");
+            exit;
+        }
+        else {	//show alert if login fails
+            echo "<script>
+                        alert('Invalid username/password');
+                      </script>";
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -80,6 +112,10 @@
                     tellus dui, quis posuere diam ultricies ac.
                 </p>
             </div>
+
+            <div id="register-container">
+                <?php include "register.php" ?>
+            </div>
 		</div>
 		<!-- CONTENT END -->
 		<!-- FOOTER START -->
@@ -90,35 +126,3 @@
         </div>
 	</body>
 </html>
-
-<?php
-	session_start();
-
-	if(isset($_SESSION['logged_in'])){
-		header("Location: authorized.php");
-		exit;
-	}
-
-	if(isset($_POST['login'])){
-		include '../db/db.php';
-
-		$db = new Database();	//user defined database class from db.php;
-
-		 //$user is false if login is unsuccessful
-        $db = new Database();
-		if($user = $db->login($_POST['username'],sha1($_POST['password']))){
-				$_SESSION['logged_in'] = true;
-				$_SESSION['role'] = $user['role'];
-				$_SESSION['username'] = $user['username'];
-				$_SESSION['name'] = $user['name'];
-
-				header("Location: authorized.php");
-                exit;
-		}
-		else {	//show alert if login fails
-			echo "<script>
-					alert('Invalid username/password');
-				  </script>";
-		}
-	}
-?>
