@@ -55,8 +55,6 @@
                     "</tr>"
             );
 
-            console.log(gradesheets[index]);
-
             for(i = 0, j = gradesheets[index].length; i<j; i++){
                 $("#"+container+" > table").append(
                     "<tr value = '"+gradesheets[index][i].Section+"'>" +
@@ -92,7 +90,7 @@
                 $("#"+container).append("</table>");
 
                 $("#"+container+" > table").find('tr').next().on('click',function(){
-                    show_grades($(this).attr('value'),$(this).children("td").next().next().html());
+                    show_grades($(this).find('td').html() ,$(this).attr('value'),$(this).children("td").next().next().html());
                 });
 
                 $("#"+container+" > table").find('tr').find('th').on('click', function(){
@@ -119,7 +117,7 @@
         }
 
         function update_gradesheet(section, course_code, status){
-            data = {'course_code':course_code, 'section':section, 'status':status};
+            var data = {'course_code':course_code, 'section':section, 'status':status};
 
             $.post("/logic/depthead.php/",{'method':'update_gradesheet', 'data':data},function(data){
                 search_gradesheet("gradesheets_container", "PENDING",1);
@@ -131,15 +129,13 @@
             });
         }
 
-        function show_grades(section, lecturer){
+        function show_grades(subject, section, lecturer){
             //highlight row on click
 //            console.log(lecturer);
-            var data = {'section':section, 'name':lecturer};
-            $.post("/logic/lecturer.php",{'method':'get_grades','data':data},function(data){
+            var data = {'Course_code':subject ,'Section':section, 'Name':lecturer};
 
-                console.log(lecturer);
+            $.post("/logic/lecturer.php",{'method':'get_grades','data':data},function(data){
                 data = JSON.parse(data);
-                console.log(data);
 
                 $("#grades_info").html(data[0].Course_code + " " + data[0].Section);
 

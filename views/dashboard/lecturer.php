@@ -28,8 +28,6 @@ if(isset($_POST['submit'])){
 ?>
 
     <br />
-    Hello, <p id="lecturer_name"><?php echo $_SESSION['name']?></p>
-    <br />
 
     <h3>Gradesheets submitted</h3>
     <div id="gradesheets_container"></div>
@@ -66,13 +64,8 @@ if(isset($_POST['submit'])){
         var gradesheets;
         $(function(){
             show_gradesheets();
-            $('#submit_grade').on('click',add_grade);
             $('#submit').on('click',show_gradesheets);
         });
-
-        function add_grade(){
-            alert("hello");
-        }
 
         function show_gradesheets(){
             $.post("/logic/lecturer.php",{'method':'get_gradesheets'},function(data){
@@ -209,7 +202,7 @@ if(isset($_POST['submit'])){
                 );
                 $('#add_grade_button').on('click',function(){
                     var data = {
-                        'Lecturer': $('#lecturer_name').text(),
+                        'Lecturer': $.trim($('#user-name').text()),
                         'Student_no':$('#new_student_no').val(),
                         'Course_code':$('#subject').text(),
                         'Section':$('#section').text(),
@@ -218,7 +211,7 @@ if(isset($_POST['submit'])){
                     };
                     $.post("/logic/lecturer.php",{'method':'insert_grade','data':data});
                     $('#grades_table tr')[1].remove();
-                    show_grades(data['Section']);
+                    show_grades(data.Course_code,data.Section);
                 });
                 $('#cancel_button').on('click',function(){
                     $('#grades_table tr')[1].remove();
@@ -252,7 +245,7 @@ if(isset($_POST['submit'])){
                 $('.save_button').on('click',function(){
                     var buttonRow = $(this).closest('tr');
                     var data = {
-                        'Lecturer': $('#lecturer_name').text(),
+                        'Lecturer': $.trim($('#user-name').text()),
                         'Old_student_no': originalData.Student_no,
                         'New_student_no': buttonRow.find('input').val(),
                         'Course_code':$('#subject').text(),
@@ -261,20 +254,27 @@ if(isset($_POST['submit'])){
                         'Remarks': buttonRow.find('input')[1].value
                     };
 
-                    $.post("/logic/lecturer.php",{'method':'update_grade','data':data});
-                    show_grades(data['Section']);
+                    $.post("/logic/lecturer.php",{'method':'update_grade','data':data},function(){
+                        show_gradesheets();
+                        show_grades(data.Course_code,data.Section);
+                    });
+
                 });
 
                 //event handler for delete button
                 $('.delete_button').on('click',function(){
                     var data = {
-                        'Lecturer': $('#lecturer_name').text(),
+                        'Lecturer': $.trim($('#user-name').text()),
                         'Student_no':$(this).closest('tr').find('input').val(),
                         'Course_code':$('#subject').text(),
                         'Section':$('#section').text()
                     };
-                    $.post("/logic/lecturer.php",{'method':'delete_grade','data':data});
-                    show_grades(data['Section']);
+
+                    $.post("/logic/lecturer.php",{'method':'delete_grade','data':data},function(){
+                        show_gradesheets();
+                        show_grades(data.Course_code,data.Section);
+                    });
+
                 });
 
                 //event for showing buttons onclick per row

@@ -182,6 +182,14 @@
 
             mysqli_query($this->conn, $this->query);
 
+            $this->query = "UPDATE gradesheet ".
+                                "SET status='PENDING'".
+                                " WHERE lecturer='{$data['Lecturer']}'".
+                                " AND course_code = '{$data['Course_code']}'".
+                                " AND section = '{$data['Section']}'";
+
+            mysqli_query($this->conn, $this->query);
+
             $this->close();
         }
 
