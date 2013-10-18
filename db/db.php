@@ -111,10 +111,28 @@
             echo json_encode(mysqli_fetch_all($this->result, MYSQLI_ASSOC));
         }
 
+        function delete_gradesheet($data){
+            $this->connect();
+
+            //delete grades
+            $this->query = "DELETE FROM grades WHERE lecturer='{$data['Lecturer']}'".
+                " AND course_code = '{$data['Course_code']}'".
+                " AND section = '{$data['Section']}'";
+
+            mysqli_query($this->conn,$this->query);
+
+            //delete gradesheet
+            $this->query = "DELETE FROM gradesheet WHERE lecturer = '{$data['Lecturer']}'".
+                            " AND course_code = '{$data['Course_code']}' AND section = '{$data['Section']}'";
+            mysqli_query($this->conn,$this->query);
+
+            $this->close();
+        }
+
         function get_grades($data){
             $this->connect();
 
-            $this->query = "SELECT * FROM grades WHERE lecturer = '".$data['name']."' AND section = '".$data['section']."'";
+            $this->query = "SELECT * FROM grades WHERE lecturer = '".$data['Name']."' AND course_code = '{$data['Course_code']}' AND section = '".$data['Section']."'";
 
             $this->result = mysqli_query($this->conn,$this->query);
 
@@ -176,21 +194,24 @@
 
             mysqli_query($this->conn,$this->query);
 
-            $this->query = "INSERT INTO grades VALUES ";
-            for($i = 0; $i < count($grades); $i++){
-                $student_no = $grades[$i]["student_no"];
-                $grade = $grades[$i]["grade"];
-                $remarks = $grades[$i]["remarks"];
-                $this->query .= "('{$lecturer}','{$student_no}','{$course_code}','{$section}','{$grade}','${remarks}')";
-                if($i+1 != count($grades))
-                    $this->query .= ",";
-            }
+            if($grades != null){
+                $this->query = "INSERT INTO grades VALUES ";
+                for($i = 0; $i < count($grades); $i++){
+                    $student_no = $grades[$i]["student_no"];
+                    $grade = $grades[$i]["grade"];
+                    $remarks = $grades[$i]["remarks"];
+                    $this->query .= "('{$lecturer}','{$student_no}','{$course_code}','{$section}','{$grade}','${remarks}')";
+                    if($i+1 != count($grades))
+                        $this->query .= ",";
+                }
 
-            mysqli_query($this->conn,$this->query);
+                mysqli_query($this->conn,$this->query);
+            }
 
             //temporary error reporter
             if(mysqli_error($this->conn)){
                 echo "<script>alert('Upload failed! Possible duplicate! (Temporary error reporter)');</script>";
+                echo mysqli_error($this->conn);
             }
             else echo "Upload success!";
 

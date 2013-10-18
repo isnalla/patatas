@@ -4,20 +4,24 @@ include("includes/header.php");
 ?>
 <?php
 if(isset($_POST['submit'])){
-    $csv = fopen($_FILES["file"]["tmp_name"],"r");
 
+    $grades = null;
+
+    if($_FILES["file"]["tmp_name"] != ""){
+        $csv = fopen($_FILES["file"]["tmp_name"],"r");
+
+        for($i=0; !feof($csv); $i++){
+            $grade = explode(",",fgets($csv));
+            $grades[$i]["student_no"] = $grade[0];
+            $grades[$i]["grade"] = $grade[1];
+            $grades[$i]["remarks"] = $grade[2];
+        }
+        fclose($csv);
+    }
     $course_code = $_POST['course_code'];
     $section = $_POST['section'];
 
     //parse grades from csv file into array of grades[student_no,grade,remarks]"
-    $grades;
-    for($i=0; !feof($csv); $i++){
-        $grade = explode(",",fgets($csv));
-        $grades[$i]["student_no"] = $grade[0];
-        $grades[$i]["grade"] = $grade[1];
-        $grades[$i]["remarks"] = $grade[2];
-    }
-    fclose($csv);
 
     $db->insert_gradesheet($course_code,$section,$grades);
 }
@@ -87,7 +91,7 @@ if(isset($_POST['submit'])){
 
 
                 for(i = 0; i<data.length; i++)
-                    $("#gradesheets_container > table").append(
+                    $("#gradesheets_table").append(
                         "<tr value = '"+data[i].Section+"'>" +
                             "<td>" +
                                 data[i].Course_code +
@@ -98,24 +102,45 @@ if(isset($_POST['submit'])){
                             "<td>" +
                                 data[i].Status +
                             "</td>" +
+                            "<td>" +
+                                "<input type=\"button\" value=\"Delete\" />"+
+                            "</td>" +
                             "</tr>"
                     );
 
-                $("#gradesheets_container > table").append("</table>");
+                $("#gradesheets_table").append("</table>");
 
+                $('#gradesheets_table').find('input[type="button"]').on('click',function(event){
+                    var subject = $(this).closest('tr').find('td').html();
+                    var section = $(this).closest('tr').find('td').next().html();
+
+                    var data = {
+                      'Lecturer' : '<?php echo $_SESSION['name']?>',
+                      'Course_code': subject,
+                      'Section': section
+                    };
+
+                    $.post("/logic/lecturer.php",{'method':'delete_gradesheet','data':data});
+                    show_gradesheets();
+                    $('#grades_container').html('');
+                    event.stopPropagation();
+                });
+
+                //show grades of gradesheets onclick
                 $('#gradesheets_table').find('tr').next().on('click',function(){
                     $('#subject').html($(this).find('td').html());
                     $('#section').html($(this).find('td').next().html());
 
+                    var subject = $(this).find('td').html();
                     var section = $(this).attr('value');
                     if($(this).find('td').next().next().html() == "APPROVED")
-                        show_grades_noneditable(section);
-                    else show_grades(section);
+                        show_grades_noneditable(subject,section);
+                    else show_grades(subject,section);
                 });
             });
         }
 
-        function show_grades_noneditable(section){
+        function show_grades_noneditable(subject,section){
             $("#grades_container").html(
                 "<table id='grades_table' border = 1>" +
                     "<tr>" +
@@ -126,7 +151,7 @@ if(isset($_POST['submit'])){
                     "</table>"
             );
 
-            var data = {'section':section,'name':'<?php echo $_SESSION['name'];?>'};
+            var data = {'Course_code':subject,'Section':section,'Name':'<?php echo $_SESSION['name'];?>'};
             $.post("/logic/lecturer.php",{'method':'get_grades','data':data},function(data){
 
                 data = JSON.parse(data);
@@ -143,7 +168,7 @@ if(isset($_POST['submit'])){
             });
         }
 
-        function show_grades(section){
+        function show_grades(subject,section){
             //highlight row on click
             var originalData;
             var gradeDropdown =
@@ -200,7 +225,7 @@ if(isset($_POST['submit'])){
                 });
             });
 
-            var data = {'section':section,'name':'<?php echo $_SESSION['name'];?>'};
+            var data = {'Course_code':subject,'Section':section,'Name':'<?php echo $_SESSION['name'];?>'};
             $.post("/logic/lecturer.php",{'method':'get_grades','data':data},function(data){
 
                 data = JSON.parse(data);

@@ -20,6 +20,12 @@
             echo $res ;
         }
 
+        function delete_gradesheet($data){
+            $db = new Database();
+            $res = $db->delete_gradesheet($data);
+            echo $res;
+        }
+
         function get_grades($data){
             $db = new Database();
             $res = $db->get_grades($data);
