@@ -114,7 +114,7 @@ if(isset($_POST['submit'])){
 
         function show_grades(section){
             //highlight row on click
-            var currentRow;
+            var originalData;
             var gradeDropdown =
                 "<select class=\"grade_dropdown\">" +
                     "<option>1.0</option><option>1.25</option><option>1.5</option><option>1.75</option>" +
@@ -209,7 +209,6 @@ if(isset($_POST['submit'])){
                 var rows = $('#grades_table').find('tr').next();
                 rows.on('click',function(){
                     if($(this).attr('clicked') == undefined || $(this).attr('clicked') == "false"){
-                        console.log('hello');
                         var previousRow = $('#grades_table').find('tr[clicked="true"]');
                         if(previousRow.length != 0){
                             var rowButtons = previousRow.find('input[type="button"]');
@@ -219,13 +218,21 @@ if(isset($_POST['submit'])){
                         }
                         $(this).find('input[type="button"]').show();
                         $(this).attr('clicked',true);
-                        currentRow = $(this);
+                        var textInputs = $(this).find('input[type="text"]');
+                        originalData = {
+                            'Student_no':textInputs.val(),
+                            'Grade':$(this).find('select').val(),
+                            'Remarks':textInputs[1].value
+                        }
                     }
                 });
             });
 
             function cancelChanges(previousRow){
-                console.log(previousRow);
+                var textInputs = previousRow.find('input[type="text"]');
+                textInputs[0].value = originalData.Student_no;
+                previousRow.find('select').val(originalData.Grade);
+                textInputs[1].value = originalData.Remarks;
             }
         }
 
