@@ -2,24 +2,27 @@
 <html>
 	<head>
 		<title> EF5L SystemTwo</title>
-		<link rel="stylesheet" type="text/css" href="../css/project.css" />
+        <link rel="stylesheet" type="text/css" href="/css/reset.css" />
+        <link rel="stylesheet" type="text/css" href="/css/project.css" />
 	</head>
 	<body>
 		<!-- HEADER START -->
+        <div id="homepage-container">
 		<div id="index-header" name="header">	
-			<h2 id="index-header-text"> EF5L systemtwo </h2>	
+			<div id="logo-container">
+                <img src="/img/logo.png"/>
+			</div>
 			<form id="login-form" name="login-form" action="" method="post">
 
 				<div id="username-container">
-				<label for="username"> username </label><br />
+				<label for="username"> Username </label><br />
 					<input type="text" id="username" name="username" />
 				</div>
-
 				<div id="password-container">
-					<label for="password"> password </label><br />
+					<label for="password"> Password </label><br />
 					<input type="password" id="password" name="password" />
-					<button type="submit" id="login" name="login" value="login" />Log-in</button>
 				</div>
+                <button type="submit" class="submit-button" id="login" name="login" value="login" />Log In</button>
 			</form>
 		</div>
 		<!-- HEADER END -->
@@ -33,6 +36,7 @@
 			
 		</div>
 		<!-- FOOTER END -->
+        </div>
 	</body>
 </html>
 

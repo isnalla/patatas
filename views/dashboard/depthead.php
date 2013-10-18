@@ -24,7 +24,9 @@
             search_gradesheet("gradesheets_container_approved", "APPROVED",2);
             search_gradesheet("gradesheets_container_disapproved","DISAPPROVED",3);
             $('#search_button').click(function(e){
-                search_gradesheet();
+                search_gradesheet("gradesheets_container", "PENDING",1);
+                search_gradesheet("gradesheets_container_approved", "APPROVED",2);
+                search_gradesheet("gradesheets_container_disapproved","DISAPPROVED",3);
                 e.preventDefault();
             });
         });
@@ -37,6 +39,8 @@
 
                 data = JSON.parse(data);
                 gradesheets[index]= data;
+
+
                 show_gradesheets(container,index);
             });
 
@@ -131,7 +135,7 @@
 
         function show_grades(section, lecturer){
             //highlight row on click
-
+//            console.log(lecturer);
             var data = {'section':section, 'name':lecturer};
             $.post("/logic/lecturer.php",{'method':'get_grades','data':data},function(data){
 
@@ -155,13 +159,13 @@
                     $("#grades_container > table").append(
                         "<tr>" +
                             "<td>" +
-                            "<input type=\"text\" value=\""+data[i].Student_no+"\" />" +
+                            data[i].Student_no +
                             "</td>" +
                             "<td>" +
-                            "<input type=\"text\" value=\""+ data[i].Grade+"\" />" +
+                            data[i].Grade+
                             "</td>" +
                             "<td>" +
-                            "<input type=\"text\" value=\""+ data[i].Remarks+"\" />" +
+                            data[i].Remarks+
                             "</td>" +
                             "</tr>"
                     );

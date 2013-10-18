@@ -78,7 +78,7 @@ if(isset($_POST['submit'])){
                 gradesheets = data;
 
                 $("#gradesheets_container").html(
-                    "<table id=\"gradesheets_table\" border = 1>" +
+                    "<table id=\"gradesheets_table\">" +
                         "<tr>" +
                             "<th>Subject</th>" +
                             "<th>Section</th>" +

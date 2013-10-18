@@ -10,6 +10,8 @@ if(!isset($_SESSION))
         <?php //echo $_SESSION["page_title"] ?>
         <!-- put links here (css, jquery) -->
         <script src="/js/jquery.js"></script>
+        <link rel="stylesheet" href="/css/reset.css"/>
+        <link rel="stylesheet" href="/css/project.css"/>
     </head>
     <body>
 
