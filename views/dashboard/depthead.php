@@ -2,20 +2,25 @@
 <?php
     include("includes/header.php");
 ?>
+<div id="logged">
+    <div id="left_nav">
+        <div id = "depthead_search_bar" >
+            <form>
+                <input type="text" name="search_text" id="search_text" placeholder="Search subject here"/>
+                <input type="submit" CLASS="submit-button" id="search_button"/>
+            </form>
+        </div>
 
-    <div id = "depthead_search_bar" >
-        <form>
-            <input type="text" name="search_text" id="search_text" placeholder="Search subject here"/>
-            <input type="submit" id="search_button"/>
-        </form>
+        <div id="gradesheets_container"></div>
+        <div id="gradesheets_container_approved"></div>
+        <div id="gradesheets_container_disapproved"></div>
     </div>
 
-    <div id="gradesheets_container"></div>
-    <div id="gradesheets_container_approved"></div>
-    <div id="gradesheets_container_disapproved"></div>
-    <h3 id="grades_info"></h3>
-    <div id="grades_container"></div>
-
+    <div id="right_nav">
+        <h3 id="grades_info"></h3>
+        <div id="grades_container"></div>
+    </div>
+</div>
     <script>
         var gradesheets = [];
 
@@ -45,18 +50,22 @@
         }
 
         function show_gradesheets(container,index){
+            console.log(gradesheets);
             $("#"+container).html(
+                "<div class='slimscroll'>" +
                 "<table id=\"gradesheets_table\">" +
                     "<tr>" +
                     "<th>Subject</th>" +
                     "<th>Section</th>" +
                     "<th>Lecturer</th>" +
                     "<th>Status</th>" +
+                    "<th></th>"+
+                    "<th></th>"+
                     "</tr>"
             );
 
             for(i = 0, j = gradesheets[index].length; i<j; i++){
-                $("#"+container+" > table").append(
+                $("#"+container+"  table").append(
                     "<tr value = '"+gradesheets[index][i].Section+"'>" +
                         "<td>" +
                         gradesheets[index][i].Course_code +
@@ -74,34 +83,36 @@
                 );
 
                 if(container == "gradesheets_container"){
-                    $("#"+container+" > table > tbody >tr:nth-child(" + (i+1) + ")").next().append(
+                    $("#"+container+"  table > tbody >tr:nth-child(" + (i+1) + ")").next().append(
                         "<td>" +
-                        "<button onclick = 'update_gradesheet("+'"'+gradesheets[index][i].Section+'"'+","+'"'+gradesheets[index][i].Course_code+'"'+","+'"'+"APPROVED"+'"'+")'>Approve</button>" +
+                        "<button class = 'submit-button' onclick = 'update_gradesheet("+'"'+gradesheets[index][i].Section+'"'+","+'"'+gradesheets[index][i].Course_code+'"'+","+'"'+"APPROVED"+'"'+")'>Approve</button>" +
                         "</td>" +
                         "<td>" +
-                        "<button onclick = 'update_gradesheet("+'"'+gradesheets[index][i].Section+'"'+","+'"'+gradesheets[index][i].Course_code+'"'+","+'"'+"DISAPPROVED"+'"'+")'>Disapprove</button>" +
+                        "<button class = 'submit-button' onclick = 'update_gradesheet("+'"'+gradesheets[index][i].Section+'"'+","+'"'+gradesheets[index][i].Course_code+'"'+","+'"'+"DISAPPROVED"+'"'+")'>Disapprove</button>" +
                         "</td>"
                     );
                 }
 
-               $("#"+container+" > table > tbody").append();
             }
 
-                $("#"+container).append("</table>");
+                $("#"+container).append("</table></div>");
 
-                $("#"+container+" > table").find('tr').next().on('click',function(){
+                $("#"+container+"  table").find('tr').next().on('click',function(){
                     show_grades($(this).find('td').html() ,$(this).attr('value'),$(this).children("td").next().next().html());
-                    $("#gradesheets_container > table").find("tr").siblings().addBack().removeClass("selected");
-                    $("#gradesheets_container_approved > table").find("tr").siblings().addBack().removeClass("selected");
-                    $("#gradesheets_container_disapproved > table").find("tr").siblings().addBack().removeClass("selected");
+                    $("#gradesheets_container  table").find("tr").siblings().addBack().removeClass("selected");
+                    $("#gradesheets_container_approved  table").find("tr").siblings().addBack().removeClass("selected");
+                    $("#gradesheets_container_disapproved  table").find("tr").siblings().addBack().removeClass("selected");
                     $(this).addClass("selected");
                 });
 
-                $("#"+container+" > table").find('tr').find('th').on('click', function(){
+                $("#"+container+"  table").find('tr').find('th').on('click', function(){
                     arrange_gradesheets($(this).html(),$(this).parent().parent().parent().parent().attr('id'),index);
                 });
 
 
+           $('#' + container + " > .slimscroll").slimscroll({
+                height:'auto'
+            });
 
             //add grades to the gradesheet table
                 //make it hidden at first and could be shown when clicked like in toggleable asdfasdf
@@ -147,6 +158,7 @@
                 $("#grades_info").html(data[0].Course_code + " " + data[0].Section);
 
                 $("#grades_container").html(
+                    "<div class'slimscroll'>" +
                     "<table id='grades_table' border = 1>" +
                         "<tr>" +
                         "<th>Student No</th>" +
@@ -157,7 +169,7 @@
 
 
                 for(i = 0; i<data.length; i++)
-                    $("#grades_container > table").append(
+                    $("#grades_container  table").append(
                         "<tr>" +
                             "<td>" +
                             data[i].Student_no +
@@ -171,7 +183,7 @@
                             "</tr>"
                     );
 
-                $("#gradesheets_container > table").append("</table>");
+                $("#gradesheets_container  table").append("</table></div>");
 
             });
         }

@@ -39,87 +39,90 @@
 	<body>
 		<!-- HEADER START -->
         <div id="homepage-container">
-		<div id="index-header" name="header">	
-			<div id="logo-container">
-                <img src="/img/logo.png"/>
-			</div>
-			<form id="login-form" name="login-form" action="" method="post">
-
-				<div id="username-container">
-				<label for="username"> Username </label><br />
-					<input type="text" id="username" name="username" />
-				</div>
-				<div id="password-container">
-					<label for="password"> Password </label><br />
-					<input type="password" id="password" name="password" />
-				</div>
-                <button type="submit" class="submit-button" id="login" name="login" value="login" />Log In</button>
-			</form>
-            <div id="hr"></div>
-		</div>
-		<!-- HEADER END -->
-		<!-- CONTENT START -->
-		<div id="index-content" name="content">
-            <div class="article-header">
-                <div>
-                    <img src = "/img/article_header_1.png"/>
+            <div id="index-header" name="header">
+                <div id="logo-container">
+                    <img src="/img/logo.png"/>
                 </div>
+                <form id="login-form" name="login-form" action="" method="post">
+
+                    <div id="username-container">
+                    <label for="username"> Username </label><br />
+                        <input type="text" id="username" name="username" />
+                    </div>
+                    <div id="password-container">
+                        <label for="password"> Password </label><br />
+                        <input type="password" id="password" name="password" />
+                    </div>
+                    <button type="submit" class="submit-button" id="login" name="login" value="login" />Log In</button>
+                </form>
+                <div id="hr"></div>
             </div>
-            <div class="article-body">
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing
-                    elit. Donec ante augue, pretium sed lectus id,
-                    consectetur fermentum tellus. Praesent semper, orci vel
-                    ultricies fringilla, mauris erat tempor ipsum, molestie
-                    mattis enim nisi non nulla. Suspendisse consectetur
-                    accumsan leo, quis luctus ipsum sollicitudin vitae.
-                    Maecenas accumsan turpis suscipit viverra sodales. Etiam
-                    hendrerit, turpis non ullamcorper gravida, dui libero
-                    aliquet libero, at iaculis lacus odio sed diam. Aenean
-                    tristique magna vitae orci aliquam tempus. Maecenas
-                    accumsan sed ipsum quis ullamcorper. Cras vel
-                    commodo neque. Praesent non ligula faucibus, sagittis
-                    arcu vel, commodo arcu. Mauris eros massa, vestibulum a
-                    lorem a, sodales luctus urna. In vitae leo id sapien
-                    vulputate elementum non ut turpis. Integer gravida
-                    tellus dui, quis posuere diam ultricies ac.
-                </p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing
-                    elit. Donec ante augue, pretium sed lectus id,
-                    consectetur fermentum tellus. Praesent semper, orci vel
-                    ultricies fringilla, mauris erat tempor ipsum, molestie
-                    mattis enim nisi non nulla. Suspendisse consectetur
-                    accumsan leo, quis luctus ipsum sollicitudin vitae.
-                    Maecenas accumsan turpis suscipit viverra sodales. Etiam
-                    hendrerit, turpis non ullamcorper gravida, dui libero
-                    aliquet libero, at iaculis lacus odio sed diam. Aenean
-                    tristique magna vitae orci aliquam tempus. Maecenas
-                    accumsan sed ipsum quis ullamcorper.
-                </p>
-                <p>
-                    Maecenas accumsan turpis suscipit viverra sodales. Etiam
-                    hendrerit, turpis non ullamcorper gravida, dui libero
-                    aliquet libero, at iaculis lacus odio sed diam. Aenean
-                    tristique magna vitae orci aliquam tempus. Maecenas
-                    accumsan sed ipsum quis ullamcorper. Cras vel
-                    commodo neque. Praesent non ligula faucibus, sagittis
-                    arcu vel, commodo arcu. Mauris eros massa, vestibulum a
-                    lorem a, sodales luctus urna. In vitae leo id sapien
-                    vulputate elementum non ut turpis. Integer gravida
-                    tellus dui, quis posuere diam ultricies ac.
-                </p>
+            <!-- HEADER END -->
+            <!-- CONTENT START -->
+            <div id="index-content" name="content">
+                <div id="article-container">
+                    <div class="article-header">
+                        <div>
+                            <img src = "/img/article_header_1.png"/>
+                        </div>
+                    </div>
+                    <div class="article-body">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit. Donec ante augue, pretium sed lectus id,
+                            consectetur fermentum tellus. Praesent semper, orci vel
+                            ultricies fringilla, mauris erat tempor ipsum, molestie
+                            mattis enim nisi non nulla. Suspendisse consectetur
+                            accumsan leo, quis luctus ipsum sollicitudin vitae.
+                            Maecenas accumsan turpis suscipit viverra sodales. Etiam
+                            hendrerit, turpis non ullamcorper gravida, dui libero
+                            aliquet libero, at iaculis lacus odio sed diam. Aenean
+                            tristique magna vitae orci aliquam tempus. Maecenas
+                            accumsan sed ipsum quis ullamcorper. Cras vel
+                            commodo neque. Praesent non ligula faucibus, sagittis
+                            arcu vel, commodo arcu. Mauris eros massa, vestibulum a
+                            lorem a, sodales luctus urna. In vitae leo id sapien
+                            vulputate elementum non ut turpis. Integer gravida
+                            tellus dui, quis posuere diam ultricies ac.
+                        </p>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit. Donec ante augue, pretium sed lectus id,
+                            consectetur fermentum tellus. Praesent semper, orci vel
+                            ultricies fringilla, mauris erat tempor ipsum, molestie
+                            mattis enim nisi non nulla. Suspendisse consectetur
+                            accumsan leo, quis luctus ipsum sollicitudin vitae.
+                            Maecenas accumsan turpis suscipit viverra sodales. Etiam
+                            hendrerit, turpis non ullamcorper gravida, dui libero
+                            aliquet libero, at iaculis lacus odio sed diam. Aenean
+                            tristique magna vitae orci aliquam tempus. Maecenas
+                            accumsan sed ipsum quis ullamcorper.
+                        </p>
+                        <p>
+                            Maecenas accumsan turpis suscipit viverra sodales. Etiam
+                            hendrerit, turpis non ullamcorper gravida, dui libero
+                            aliquet libero, at iaculis lacus odio sed diam. Aenean
+                            tristique magna vitae orci aliquam tempus. Maecenas
+                            accumsan sed ipsum quis ullamcorper. Cras vel
+                            commodo neque. Praesent non ligula faucibus, sagittis
+                            arcu vel, commodo arcu. Mauris eros massa, vestibulum a
+                            lorem a, sodales luctus urna. In vitae leo id sapien
+                            vulputate elementum non ut turpis. Integer gravida
+                            tellus dui, quis posuere diam ultricies ac.
+                        </p>
+                    </div>
+                </div>
+                <div id="register-container">
+                    <?php include "register.php" ?>
+                </div>
+
             </div>
 
-            <div id="register-container">
-                <?php include "register.php" ?>
+            <!-- CONTENT END -->
+            <!-- FOOTER START -->
+            <div id="footer" name="footer">
+                <h3>&copy;ef5lsystemtwo 2013</h3>
             </div>
-		</div>
-		<!-- CONTENT END -->
-		<!-- FOOTER START -->
-		<div id="index-footer" name="footer">	
-			
-		</div>
 		<!-- FOOTER END -->
         </div>
 	</body>

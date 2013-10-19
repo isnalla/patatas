@@ -3,10 +3,14 @@ body{
 }
 
 #homepage-container{
+    position:absolute;
     width:76%;
     margin:0 auto;
     background:#f2efe7;
-    height:768px;
+    right:0;
+    left:0;
+    top:0;
+    bottom:0;
 }
 
 #index-header{
@@ -59,23 +63,27 @@ body{
     height:100%;
     float:left;
 }
-
 #index-content{
     margin-top:45px;
-    width: 50%;
+    width: 100%;
 }
+
 
 #index-content .article-header{
     background:#f8f8f8;
     width: 100%;
     height:80px;
-
+    float:left;
     margin-bottom:15px;
 
 
 }
+#article-container{
+    width:60%;
+    float:left;
+}
 
-#index-content > .article-header > div{
+#index-content .article-header > div{
     width:75%;
     margin:0 auto;
     padding: 8px;
@@ -87,16 +95,54 @@ body{
 }
 
 #index-content .article-body{
+    width:90%;
     background:#f8f8f8;
-    padding:30px;
+    padding:5%;
     font:justify;
     text-align: justify;
+    float:left;
+    clear:left;
 }
 
 #index-content p{
     font-size:12px;
     font-family:'Lucida Grande', Tahoma, Verdana, Arial, sans-serif;;
     margin-bottom:20px;
+}
+
+#register-container{
+    float:right;
+    width:30%;
+    padding-right:3%;
+    padding-top:3%;
+    padding-bottom:3%;
+    padding-left:3%;
+    background:#ffe085;
+    font-family:Tahoma;
+}
+
+#register-container h4{
+    font-size:12px;
+    margin-bottom:8%;
+}
+
+#register-container input{
+    margin-left:10%;
+}
+
+
+#footer{
+    position:absolute;
+    bottom:0px;
+    width:100%;
+    height:20px;
+    background:#dcd9d2;
+    float:left;
+
+    clear:left;
+    clear:right;
+    margin:0 auto;
+    z-index:100;
 }
 
 
@@ -111,6 +157,7 @@ body{
 #header{
     height:50px;
     background:#145d72;
+    z-index:100;
 }
 
 #user-name{
@@ -120,9 +167,6 @@ body{
     font-size:14px;
     font-weight:bold;
     margin-top:16px;
-}
-#user-name{
-
 }
 
 #user-options-container{
@@ -182,16 +226,76 @@ body{
 
 /*-------------------------------------------------------------------------*/
 
+#logged{
+    position:absolute;
+    width:100%;
+    bottom:0;
+    top:50px;
+    background:#f8f8f8;
+    z-index:20;
+}
 
 
 /*--------------------------- Department Head -----------------------------*/
 table tr{
     background:#ffe085;
 }
+table th{
+    text-align: left;
+}
 table .selected{
     color:white;
     background:#a8841b;
 }
+
+#depthead_search_bar{
+    width:80%;
+    margin-left:10%;
+    margin-bottom:3%;
+}
+
+#left_nav{
+    position:absolute;
+    width:40%;
+    bottom:0;
+    top:0px;
+    float:left;
+}
+
+#right_nav{
+    position:absolute;
+    bottom:0;
+    top:0px;
+    left:40%;
+    width:60%;
+    float:left;
+}
+
+#gradesheets_container, #gradesheets_container_approved, #gradesheets_container_disapproved{
+    width:80%;
+    height:27%;
+    margin-left:10%;
+    margin-bottom:5%;
+    background:#ffe085;
+    overflow: hidden;
+}
+.slimscroll{
+    height:100%;
+}
+#left_nav table{
+    width:100%;
+}
+
+#left_nav table th{
+    width:25%;
+}
+
+#left_nav table tr{
+    border-bottom:1px solid black;
+}
+
+
+
 
 /*-------------------------------------------------------------------------*/
 
@@ -206,4 +310,5 @@ table .selected{
     position: absolute;
     width: 100px !important;
     margin-top: 3px !important;
+    z-index:100;
 }

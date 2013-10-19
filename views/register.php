@@ -16,8 +16,8 @@
     }
 ?>
 
-    Your student number will be your username.
-    Your surname will be your password. Case sensitive.
+    <h4>Your student number will be your username.
+    Your surname will be your password. Case sensitive.</h4>
     <form id="register-form" name="register-form" action="" method="post">
         <div id="username-container">
             <label for="username"> Student Number </label><br />

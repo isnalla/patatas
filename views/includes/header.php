@@ -15,6 +15,7 @@ if(!isset($_SESSION))
         <link rel="stylesheet" href="/css/project.css"/>
 
         <script src="/js/jquery.jui_dropdown.min.js"></script>
+        <script src="/js/jquery.slimscroll.min.js"></script>
         <script src="/js/jquery-ui.min.js"></script>
     </head>
     <body>

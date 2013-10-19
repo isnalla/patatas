@@ -27,39 +27,42 @@ if(isset($_POST['submit'])){
 }
 ?>
 
-    <br />
+<div id="logged">
+    <div id="left_nav">
+        <h3>Gradesheets submitted</h3>
+        <div id="gradesheets_container"></div>
 
-    <h3>Gradesheets submitted</h3>
-    <div id="gradesheets_container"></div>
-    <h3 id="subject"></h3>
-    <h3 id="section"></h3>
-    <div id="grades_container"></div>
+        <!-- yung enctype para yan mapunta sa $_FILES ung info ng gustong iupload na file -->
+        <h3> Create a Grade Sheet</h3>
+        <form action="" method="post" enctype="multipart/form-data">
 
-    <!-- yung enctype para yan mapunta sa $_FILES ung info ng gustong iupload na file -->
-    <h3> Create a Grade Sheet</h3>
-    <form action="" method="post" enctype="multipart/form-data">
+            <label for="course_code">Course Code</label> <br/>
+            <select name="course_code">
+                <?php //fill drop-down list with course codes
+                    $db = new Database();
 
-        <label for="course_code">Course Code</label> <br/>
-        <select name="course_code">
-            <?php //fill drop-down list with course codes
-                $db = new Database();
+                    $subjects = $db->get_subjects();
 
-                $subjects = $db->get_subjects();
+                    for($i = 0; $i < count($subjects); $i++){
+                        echo "\t\t\t\t<option value=\"{$subjects[$i]}\">".$subjects[$i]."</option>\n";
+                    }
+                ?>
+            </select>
+            <br />
 
-                for($i = 0; $i < count($subjects); $i++){
-                    echo "\t\t\t\t<option value=\"{$subjects[$i]}\">".$subjects[$i]."</option>\n";
-                }
-            ?>
-        </select>
-        <br />
-
-        <label for="section">Section</label><br/>
-        <input type="text" name="section" id="section" required = 'true'/><br/>
-        <label for="upload">Upload grades (csv): </label>
-        <input type="file" id="file" name="file" /><br />
-        <button type="submit" id="submit" name="submit">Submit to Department Head</button>
-    </form>
-
+            <label for="section">Section</label><br/>
+            <input type="text" name="section" id="section" required = 'true'/><br/>
+            <label for="upload">Upload grades (csv): </label>
+            <input type="file" id="file" name="file" /><br />
+            <button type="submit" id="submit" name="submit">Submit to Department Head</button>
+        </form>
+    </div>
+    <div id="right_nav">
+        <h3 id="subject"></h3>
+        <h3 id="section_head"></h3>
+        <div id="grades_container"></div>
+    </div>
+</div>
     <script>
         var gradesheets;
         $(function(){
@@ -74,6 +77,7 @@ if(isset($_POST['submit'])){
                 gradesheets = data;
 
                 $("#gradesheets_container").html(
+                    "<div class='slimscroll'>" +
                     "<table id=\"gradesheets_table\">" +
                         "<tr>" +
                             "<th>Subject</th>" +
@@ -101,7 +105,7 @@ if(isset($_POST['submit'])){
                             "</tr>"
                     );
 
-                $("#gradesheets_table").append("</table>");
+                $("#gradesheets_table").append("</table></div>");
 
                 $('#gradesheets_table').find('input[type="button"]').on('click',function(event){
                     var subject = $(this).closest('tr').find('td').html();
@@ -124,7 +128,7 @@ if(isset($_POST['submit'])){
                 //show grades of gradesheets onclick
                 $('#gradesheets_table').find('tr').next().on('click',function(){
                     $('#subject').html($(this).find('td').html());
-                    $('#section').html($(this).find('td').next().html());
+                    $('#section_head').html($(this).find('td').next().html());
                     $(this).addClass("selected").siblings().removeClass("selected");
                     var subject = $(this).find('td').html();
                     var section = $(this).attr('value');
@@ -132,7 +136,13 @@ if(isset($_POST['submit'])){
                         show_grades_noneditable(subject,section);
                     else show_grades(subject,section);
                 });
+
+                $("#gradesheets_container .slimscroll").slimscroll({
+                    height:'100%'
+                });
+
             });
+
         }
 
         function show_grades_noneditable(subject,section){
@@ -143,7 +153,7 @@ if(isset($_POST['submit'])){
                     "<th>Grade</th>" +
                     "<th>Remarks</th>" +
                     "</tr>"+
-                    "</table>"
+                    "</table></div>"
             );
 
             var data = {'Course_code':subject,'Section':section,'Name':'<?php echo $_SESSION['name'];?>'};
