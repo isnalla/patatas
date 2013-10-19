@@ -10,7 +10,6 @@
 
     if(isset($_POST['login'])){
 
-
         //$user is false if login is unsuccessful
         $db = new Database();
         if($user = $db->login($_POST['username'],sha1($_POST['password']))){

@@ -113,9 +113,11 @@ if(isset($_POST['submit'])){
                       'Section': section
                     };
 
-                    $.post("/logic/lecturer.php",{'method':'delete_gradesheet','data':data});
-                    show_gradesheets();
-                    $('#grades_container').html('');
+                    $.post("/logic/lecturer.php",{'method':'delete_gradesheet','data':data},function(data){
+                        show_gradesheets();
+                        $('#grades_container').html('');
+                    });
+
                     event.stopPropagation();
                 });
 
