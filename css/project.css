@@ -39,7 +39,8 @@ body{
 
 #index-header form > div{
     float:left;
-    margin:18px 5px;
+    margin-top:18px;
+    width:40%;
 }
 
 #index-header button{
@@ -47,7 +48,7 @@ body{
 }
 
 #index-header form > div > input{
-    width:120px;
+    width:90%;
     border:1px solid black;
     height:18px;
 }
@@ -184,8 +185,13 @@ body{
 
 
 /*--------------------------- Department Head -----------------------------*/
-
-
+table tr{
+    background:#ffe085;
+}
+table .selected{
+    color:white;
+    background:#a8841b;
+}
 
 /*-------------------------------------------------------------------------*/
 

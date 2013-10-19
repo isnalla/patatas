@@ -91,12 +91,19 @@
 
                 $("#"+container+" > table").find('tr').next().on('click',function(){
                     show_grades($(this).find('td').html() ,$(this).attr('value'),$(this).children("td").next().next().html());
+                    $("#gradesheets_container > table").find("tr").siblings().addBack().removeClass("selected");
+                    $("#gradesheets_container_approved > table").find("tr").siblings().addBack().removeClass("selected");
+                    $("#gradesheets_container_disapproved > table").find("tr").siblings().addBack().removeClass("selected");
+                    $(this).addClass("selected");
                 });
 
                 $("#"+container+" > table").find('tr').find('th').on('click', function(){
                     arrange_gradesheets($(this).html(),$(this).parent().parent().parent().parent().attr('id'),index);
                 });
-    //add grades to the gradesheet table
+
+
+
+            //add grades to the gradesheet table
                 //make it hidden at first and could be shown when clicked like in toggleable asdfasdf
         }
 

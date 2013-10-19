@@ -123,7 +123,7 @@ if(isset($_POST['submit'])){
                 $('#gradesheets_table').find('tr').next().on('click',function(){
                     $('#subject').html($(this).find('td').html());
                     $('#section').html($(this).find('td').next().html());
-
+                    $(this).addClass("selected").siblings().removeClass("selected");
                     var subject = $(this).find('td').html();
                     var section = $(this).attr('value');
                     if($(this).find('td').next().next().html() == "APPROVED")
@@ -269,10 +269,10 @@ if(isset($_POST['submit'])){
                         'Course_code':$('#subject').text(),
                         'Section':$('#section').text()
                     };
-
                     $.post("/logic/lecturer.php",{'method':'delete_grade','data':data},function(){
                         show_gradesheets();
                         show_grades(data.Course_code,data.Section);
+
                     });
 
                 });
