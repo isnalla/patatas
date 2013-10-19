@@ -29,37 +29,43 @@ if(isset($_POST['submit'])){
 
 <div id="logged">
     <div id="left_nav">
-        <h3>Gradesheets submitted</h3>
+        <div id="gradesheets_container_header"><img src="/img/GRADESHEETS.png"/></div>
         <div id="gradesheets_container"></div>
 
         <!-- yung enctype para yan mapunta sa $_FILES ung info ng gustong iupload na file -->
-        <h3> Create a Grade Sheet</h3>
-        <form action="" method="post" enctype="multipart/form-data">
+        <div id="create_gs">
+            <h3> Create a Grade Sheet</h3>
+            <form action="" method="post" enctype="multipart/form-data">
 
-            <label for="course_code">Course Code</label> <br/>
-            <select name="course_code">
-                <?php //fill drop-down list with course codes
-                    $db = new Database();
+                <label for="course_code">Course Code</label> <br/>
+                <select name="course_code">
+                    <?php //fill drop-down list with course codes
+                        $db = new Database();
 
-                    $subjects = $db->get_subjects();
+                        $subjects = $db->get_subjects();
 
-                    for($i = 0; $i < count($subjects); $i++){
-                        echo "\t\t\t\t<option value=\"{$subjects[$i]}\">".$subjects[$i]."</option>\n";
-                    }
-                ?>
-            </select>
-            <br />
+                        for($i = 0; $i < count($subjects); $i++){
+                            echo "\t\t\t\t<option value=\"{$subjects[$i]}\">".$subjects[$i]."</option>\n";
+                        }
+                    ?>
+                </select>
+                <br />
 
-            <label for="section">Section</label><br/>
-            <input type="text" name="section" id="section" required = 'true'/><br/>
-            <label for="upload">Upload grades (csv): </label>
-            <input type="file" id="file" name="file" /><br />
-            <button type="submit" id="submit" name="submit">Submit to Department Head</button>
-        </form>
+                <label for="section">Section</label><br/>
+                <input type="text" name="section" id="section" required = 'true'/><br/>
+                <label for="upload">Upload grades (csv): </label>
+                <input type="file" id="file" name="file" /><br />
+                <button type="submit" id="submit" name="submit">Submit to Department Head</button>
+            </form>
+        </div>
     </div>
+
+
     <div id="right_nav">
+        <div id="grades_info">
         <h3 id="subject"></h3>
         <h3 id="section_head"></h3>
+        </div>
         <div id="grades_container"></div>
     </div>
 </div>
@@ -100,7 +106,7 @@ if(isset($_POST['submit'])){
                                 data[i].Status +
                             "</td>" +
                             "<td>" +
-                                "<input type=\"button\" value=\"Delete\" />"+
+                                "<input class = 'submit-button' type=\"button\" value=\"Delete\" />"+
                             "</td>" +
                             "</tr>"
                     );
@@ -147,6 +153,7 @@ if(isset($_POST['submit'])){
 
         function show_grades_noneditable(subject,section){
             $("#grades_container").html(
+                "<div class='slimscroll'>" +
                 "<table id='grades_table' border = 1>" +
                     "<tr>" +
                     "<th>Student No</th>" +
@@ -171,6 +178,9 @@ if(isset($_POST['submit'])){
                     );
                 }
             });
+            $("#grades_container .slimscroll").slimscroll({
+                height:'100%'
+            });
         }
 
         function show_grades(subject,section){
@@ -185,14 +195,17 @@ if(isset($_POST['submit'])){
 
             //initialize grades table
             $("#grades_container").html(
+                "<div class='slimscroll'>" +
                 "<table id='grades_table' border = 1>" +
                     "<tr>" +
                     "<th>Student No</th>" +
                     "<th>Grade</th>" +
                     "<th>Remarks</th>" +
-                    "<td><input type=\"button\" id=\"add_row_button\" value=\"Add Grade\" /></td>"+
+                    "<td><input class = 'submit-button'type=\"button\" id=\"add_row_button\" value=\"Add Grade\" /></td>"+
+                    "<th></th>" +
                     "</tr>"+
-                "</table>"
+                "</table>" +
+                "</div>"
             );
 
             //add new table row on click of a button
@@ -207,8 +220,8 @@ if(isset($_POST['submit'])){
                         "<input id=\"new_remarks\" type=\"text\" />" +
                         "</td>"+
                         "<td>"+
-                        "<input type=\"button\" id=\"add_grade_button\" value=\"Add Grade\" />"+
-                        "<input type=\"button\" id=\"cancel_button\" value=\"X\" />"+
+                        "<input class = 'submit-button' type=\"button\" id=\"add_grade_button\" value=\"Add Grade\" />"+
+                        "<input class = 'submit-button' type=\"button\" id=\"cancel_button\" value=\"X\" />"+
                         "</td>"+
                         "</tr>"
                 );
@@ -246,8 +259,8 @@ if(isset($_POST['submit'])){
                             "<input type=\"text\" value=\""+ data[i].Remarks+"\" maxlength=\"50\" />" +
                             "</td>" +
                             "<td>" +
-                                "<input type=\"button\" id=\"save_button"+(i+1)+"\" class=\"save_button\" value=\"Save Changes\" hidden='true' />"+
-                                "<input type=\"button\" id=\"delete_button"+(i+1)+"\" class=\"delete_button\" value=\"Delete\" hidden='true' />"+
+                                "<input class = 'submit-button' type=\"button\" id=\"save_button"+(i+1)+"\" class=\"save_button\" value=\"Save Changes\" hidden='true' />"+
+                                "<input class = 'submit-button' type=\"button\" id=\"delete_button"+(i+1)+"\" class=\"delete_button\" value=\"Delete\" hidden='true' />"+
                             "</td>" +
                             "</tr>"
                     );
@@ -318,6 +331,9 @@ if(isset($_POST['submit'])){
                 previousRow.find('select').val(originalData.Grade);
                 textInputs[1].value = originalData.Remarks;
             }
+            $("#grades_container .slimscroll").slimscroll({
+                height:'100%'
+            });
         }
     </script>
 <?php

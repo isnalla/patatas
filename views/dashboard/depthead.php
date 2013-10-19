@@ -11,8 +11,11 @@
             </form>
         </div>
 
+        <div id="gradesheets_container_header"><img src="/img/PENDING.png"/></div>
         <div id="gradesheets_container"></div>
+        <div id="gradesheets_container_approved_header"><img src="/img/APPROVED.png"/></div>
         <div id="gradesheets_container_approved"></div>
+        <div id="gradesheets_container_disapproved_header"><img src="/img/DISAPPROVED.png"/></div>
         <div id="gradesheets_container_disapproved"></div>
     </div>
 
@@ -51,6 +54,7 @@
 
         function show_gradesheets(container,index){
             console.log(gradesheets);
+            console.log(container);
             $("#"+container).html(
                 "<div class='slimscroll'>" +
                 "<table id=\"gradesheets_table\">" +
@@ -58,7 +62,6 @@
                     "<th>Subject</th>" +
                     "<th>Section</th>" +
                     "<th>Lecturer</th>" +
-                    "<th>Status</th>" +
                     "<th></th>"+
                     "<th></th>"+
                     "</tr>"
@@ -75,9 +78,6 @@
                         "</td>" +
                         "<td>" +
                         gradesheets[index][i].Lecturer +
-                        "</td>" +
-                        "<td>" +
-                        gradesheets[index][i].Status +
                         "</td>"
 //                    "</tr>"
                 );
@@ -106,7 +106,7 @@
                 });
 
                 $("#"+container+"  table").find('tr').find('th').on('click', function(){
-                    arrange_gradesheets($(this).html(),$(this).parent().parent().parent().parent().attr('id'),index);
+                    arrange_gradesheets($(this).html(),container,index);
                 });
 
 
@@ -158,7 +158,7 @@
                 $("#grades_info").html(data[0].Course_code + " " + data[0].Section);
 
                 $("#grades_container").html(
-                    "<div class'slimscroll'>" +
+                    "<div class='slimscroll'>" +
                     "<table id='grades_table' border = 1>" +
                         "<tr>" +
                         "<th>Student No</th>" +
