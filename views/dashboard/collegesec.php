@@ -103,7 +103,28 @@ include("includes/header.php");
                         $("#gradesheets_container  table").find("tr").siblings().addBack().removeClass("selected");
                         $(this).addClass("selected");
                     });
+                    console.log(info);
 
+                    var lecturers = [];
+                    var subjects = [];
+                    var departments = [];
+
+                    for(i=0; i < info.length; i++){
+                        console.log(lecturers.indexOf(info[i]['Lecturer']));
+                        if(lecturers.indexOf(info[i]['Lecturer']) == -1) //prevents duplicates
+                            lecturers.push(info[i]['Lecturer']);
+                        if(subjects.indexOf(info[i]['Course_code']) == -1)
+                        subjects.push(info[i]['Course_code']);
+                        if(departments.indexOf(info[i]['Department']) == -1)
+                            departments.push(info[i]['Department']);
+                    }
+                    var filters = {
+                        'Lecturers': lecturers,
+                        'Subjects': subjects,
+                        'Departments': departments
+                    };
+
+                    fill_filters(filters);
                 });
             }
 
@@ -149,36 +170,30 @@ include("includes/header.php");
                 });
             }
 
-            fill_filters();
+            function fill_filters(filters){
+                var i;
 
-            function fill_filters(){
-                $.post("/logic/collegesec.php",{'method':'get_filters'},function(data){
+                //fill Lecturers filter
+                for(i=0; i < filters.Lecturers.length; i++){
+                    $('#filter-lecturer').append(
+                        "<option>"+filters.Lecturers[i]+"</option>"
+                    );
+                }
 
-                    var filters = JSON.parse(data);
-                    var i;
+                //fill Subjects filter
+                for(i=0; i < filters.Subjects.length; i++){
+                    $('#filter-course').append(
+                        "<option>"+filters.Subjects[i]+"</option>"
+                    );
+                }
 
-                    //fill Lecturers filter
-                    for(i=0; i < filters.Lecturers.length; i++){
-                        $('#filter-lecturer').append(
-                            "<option>"+filters.Lecturers[i]+"</option>"
-                        );
-                    }
-
-                    //fill Subjects filter
-                    for(i=0; i < filters.Subjects.length; i++){
-                        $('#filter-course').append(
-                            "<option>"+filters.Subjects[i]+"</option>"
-                        );
-                    }
-
-                    //fill Departments filter
-                    for(i=0; i < filters.Departments.length; i++){
-                        $('#filter-department').append(
-                            "<option>"+filters.Departments[i]+"</option>"
-                        );
-                    }
-                    $('.filter').on('change',function(data){show_gradesheets(data);});
-                });
+                //fill Departments filter
+                for(i=0; i < filters.Departments.length; i++){
+                    $('#filter-department').append(
+                        "<option>"+filters.Departments[i]+"</option>"
+                    );
+                }
+                $('.filter').on('change',function(data){show_gradesheets(data);});
             }
 
             function sortTable(data){
