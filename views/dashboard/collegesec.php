@@ -130,6 +130,13 @@ include("includes/header.php");
                     $("#gradesheets_container .slimscroll").slimscroll({
                         height:'100%'
                     });
+
+
+                    $("#gradesheets_container table").find('tr').next().on('click',function(){
+                        $("#gradesheets_container  table").find("tr").siblings().addBack().removeClass("selected");
+                        $(this).addClass("selected");
+                    });
+
                 });
             }
 

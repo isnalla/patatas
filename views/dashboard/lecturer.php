@@ -33,6 +33,7 @@ if(isset($_POST['submit'])){
         <div id="gradesheets_container"></div>
 
         <!-- yung enctype para yan mapunta sa $_FILES ung info ng gustong iupload na file -->
+        <div id="gradesheets_container_header"><img src="/img/GRADESHEETS.png"/></div>
         <div id="create_gs">
             <h3> Create a Grade Sheet</h3>
             <form action="" method="post" enctype="multipart/form-data">
@@ -55,7 +56,7 @@ if(isset($_POST['submit'])){
                 <input type="text" name="section" id="section" required = 'true'/><br/>
                 <label for="upload">Upload grades (csv): </label>
                 <input type="file" id="file" name="file" /><br />
-                <button type="submit" id="submit" name="submit">Submit to Department Head</button>
+                <button type="submit" class = "submit-button" id="submit" name="submit">Submit to Department Head</button>
             </form>
         </div>
     </div>

@@ -151,6 +151,7 @@
         function show_grades(subject, section, lecturer){
             //highlight row on click
 //            console.log(lecturer);
+            $("#right_nav").hide("slide", { direction: "right" }, 100);
             var data = {'Course_code':subject ,'Section':section, 'Name':lecturer};
 
             $("#grades_info").html(subject + " " + section);
@@ -184,7 +185,9 @@
                             "</tr>"
                     );
 
-                $("#gradesheets_container  table").append("</table></div>");
+                $("#grades_container  table").append("</table></div>");
+                $("#right_nav").show("slide", { direction: "left" }, 1000);
+//                $("#"+divname).parent().siblings(":visible").hide("slide", { direction: "left" }, 1000);
 
             });
         }
