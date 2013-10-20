@@ -89,6 +89,7 @@ include("includes/header.php");
                     var i;
 
                     $('#gradesheets_container').html(
+                        "<div class='slimscroll'>" +
                         "<table id=\"gradesheets_table\">" +
                             "<tr>" +
                             "<th>Department</th>" +
@@ -96,7 +97,8 @@ include("includes/header.php");
                             "<th>Section</th>" +
                             "<th>Lecturer</th>" +
                             "</tr>" +
-                            "</table>"
+                            "</table>"+
+                            "</div>"
                     );
 
                     $('#gradesheets_table th').on('click',function(data){ sortTable(data);})
@@ -119,6 +121,13 @@ include("includes/header.php");
                                 "</tr>"
                         );
                     }
+
+
+                    $("#gradesheets_container .slimscroll").slimscroll({
+                        height:'100%'
+                    });
+
+
                 });
             }
 
