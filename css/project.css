@@ -122,7 +122,7 @@ body{
     padding-top:3%;
     padding-bottom:3%;
     padding-left:3%;
-    background:#ffe085;
+    background:rgba(255,224,133,0.7);
     font-family:Tahoma;
 }
 
@@ -242,7 +242,7 @@ body{
 
 /*--------------------------- Department Head -----------------------------*/
 table tr{
-    background:#ffe085;
+    background:rgba(255,224,133,0.7);
 }
 table th{
     text-align: left;
@@ -332,7 +332,7 @@ table .selected{
     height:27%;
     margin-left:10%;
     margin-top:1%;
-    background:#ffe085;
+    background:rgba(255,224,133,0.7);
     overflow: hidden;
     padding: 1.5%;
     border-radius:5px;
@@ -359,7 +359,7 @@ table .selected{
     position: absolute;
     width: 70%;
     height:80%;
-    background:#ffe085;
+    background:rgba(255,224,133,0.7);
     margin-left:10%;
     margin-top:1.5%;
     padding:1.5%;
@@ -376,7 +376,7 @@ table .selected{
 }
 
 #grades_info{
-    background:#ffe085;
+    background:rgba(255,224,133,0.7);
     width: 40%;
     height:2%;
     padding:1%;
