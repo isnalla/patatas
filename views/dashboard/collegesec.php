@@ -24,8 +24,7 @@ include("includes/header.php");
 
     <div id="gradesheets_container_header"><img src="/img/GRADESHEETS.png"/></div>
     <div id="gradesheets_container"></div>
-    </div>
-</div>
+
     <script>
         $(document).ready(function(){
             document.title = 'College Secretary Dashboard'
@@ -66,6 +65,7 @@ include("includes/header.php");
             var lecturerFilter = '';
             var subjectFilter = '';
             var departmentFilter = '';
+            generate_gradesheet_table();
 
             function show_gradesheets(data){
                 var filterName = data.target.parentElement.name;
@@ -77,6 +77,10 @@ include("includes/header.php");
                     subjectFilter = option;
                 else departmentFilter = option;
 
+                generate_gradesheet_table();
+            }
+
+            function generate_gradesheet_table(){
                 var data = [lecturerFilter,subjectFilter,departmentFilter];
                 $.post("/logic/collegesec.php",{'method':'get_gradesheets_filtered','data':data},function(data){
                     var info = JSON.parse(data);
@@ -85,12 +89,12 @@ include("includes/header.php");
                     $('#gradesheets_container').html(
                         "<table id=\"gradesheets_table\">" +
                             "<tr>" +
-                                "<th>Department</th>" +
-                                "<th>Course Code</th>" +
-                                "<th>Section</th>" +
-                                "<th>Lecturer</th>" +
+                            "<th>Department</th>" +
+                            "<th>Course Code</th>" +
+                            "<th>Section</th>" +
+                            "<th>Lecturer</th>" +
                             "</tr>" +
-                        "</table>"
+                            "</table>"
                     );
 
                     $('#gradesheets_table th').on('click',function(data){ sortTable(data);})
@@ -99,42 +103,42 @@ include("includes/header.php");
                         $("#gradesheets_table").append(
                             "<tr>" +
                                 "<td>" +
-                                    info[i].Department +
+                                info[i].Department +
                                 "</td>" +
                                 "<td>" +
-                                    info[i].Course_code +
+                                info[i].Course_code +
                                 "</td>" +
                                 "<td>" +
-                                    info[i].Section +
+                                info[i].Section +
                                 "</td>" +
                                 "<td>" +
-                                    info[i].Lecturer +
+                                info[i].Lecturer +
                                 "</td>" +
-                            "</tr>"
+                                "</tr>"
                         );
                     }
                 });
             }
-        });
 
-        function sortTable(data){
-            var columnIndex = data.target.cellIndex;
+            function sortTable(data){
+                var columnIndex = data.target.cellIndex;
 
-            var rows = $('#gradesheets_table tr').next();
-            //bubble sort
-            for(var x=0; x< rows.length; x++){
-                for(var y=0; y< rows.length-1; y++){
-                    var cell1 = $($(rows[y]).find('td')[columnIndex]);
-                    var cell2 = $($(rows[y+1]).find('td')[columnIndex]);
+                var rows = $('#gradesheets_table tr').next();
+                //bubble sort
+                for(var x=0; x< rows.length; x++){
+                    for(var y=0; y< rows.length-1; y++){
+                        var cell1 = $($(rows[y]).find('td')[columnIndex]);
+                        var cell2 = $($(rows[y+1]).find('td')[columnIndex]);
 
-                    console.log("Y: "+y+" "+cell1.text()+" > "+cell2.text()+" "+(cell1.text()>cell2.text()));
-                    if(cell1.text() > cell2.text()){
-                        $(rows[y]).next().after($(rows[y]));
-                        rows = $('#gradesheets_table tr').next();
+                        //console.log("Y: "+y+" "+cell1.text()+" > "+cell2.text()+" "+(cell1.text()>cell2.text()));
+                        if(cell1.text() > cell2.text()){
+                            $(rows[y]).next().after($(rows[y]));
+                            rows = $('#gradesheets_table tr').next();
+                        }
                     }
                 }
             }
-        }
+        });
     </script>
 
 <?php
