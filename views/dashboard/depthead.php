@@ -5,17 +5,18 @@
 <div id="logged">
     <div id="left_nav">
         <div id = "depthead_search_bar" >
+            <div class="bg"></div>
             <form>
                 <input type="text" name="search_text" id="search_text" placeholder="Search subject here"/>
                 <input type="submit" CLASS="submit-button" id="search_button"/>
             </form>
         </div>
 
-        <div id="gradesheets_container_header"><img src="/img/PENDING.png"/></div>
+        <div id="gradesheets_container_header"><div class="bg"></div><img src="/img/PENDING.png"/></div>
         <div id="gradesheets_container"></div>
-        <div id="gradesheets_container_approved_header"><img src="/img/APPROVED.png"/></div>
+        <div id="gradesheets_container_approved_header"><div class="bg"></div><img src="/img/APPROVED.png"/></div>
         <div id="gradesheets_container_approved"></div>
-        <div id="gradesheets_container_disapproved_header"><img src="/img/DISAPPROVED.png"/></div>
+        <div id="gradesheets_container_disapproved_header"><div class="bg"></div><img src="/img/DISAPPROVED.png"/></div>
         <div id="gradesheets_container_disapproved"></div>
     </div>
 

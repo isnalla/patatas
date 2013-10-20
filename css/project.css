@@ -1,12 +1,13 @@
 body{
     background:white;
+    background-image:url("/img/bg4.jpg");
+    background-size: 100%;
 }
 
 #homepage-container{
     position:absolute;
-    width:76%;
+    width:100%;
     margin:0 auto;
-    background:#f2efe7;
     right:0;
     left:0;
     top:0;
@@ -70,8 +71,9 @@ body{
 
 
 #index-content .article-header{
-    background:#f8f8f8;
-    width: 100%;
+    position:absolute;
+    background:#145d72;
+    width: 60%;
     height:80px;
     float:left;
     margin-bottom:15px;
@@ -84,7 +86,7 @@ body{
 }
 
 #index-content .article-header > div{
-    width:75%;
+    width:65%;
     margin:0 auto;
     padding: 8px;
 }
@@ -95,9 +97,12 @@ body{
 }
 
 #index-content .article-body{
-    width:90%;
-    background:#f8f8f8;
-    padding:5%;
+    color:white;
+    position:absolute;
+    margin-top:10%;
+    width:56%;
+    background:#145d72;
+    padding:2%;
     font:justify;
     text-align: justify;
     float:left;
@@ -231,7 +236,6 @@ body{
     width:100%;
     bottom:0;
     top:50px;
-    background:#f8f8f8;
     z-index:20;
 }
 
@@ -250,18 +254,21 @@ table .selected{
 }
 
 #depthead_search_bar{
+    position:relative;
     width:50%;
     margin-left:10%;
-    margin-bottom:2%;
     height: 5%;
-    background:#c1955d;
+    background: #ffae25;
+    border-radius-bottomleft:5px;
+    border-radius:0 0 5px 5px;
 
 }
 
-#depthead_search_bar * {
-    margin-left:3%;
+#depthead_search_bar form{
+    margin-left:10%;
+    position:absolute;
+    z-index:100;
 }
-
 #left_nav{
     padding-left:1%;
     position:absolute;
@@ -270,8 +277,8 @@ table .selected{
     top:0px;
     float:left;
     border-right:1px black solid;
-    background:#9ccbdf;
-}
+/*    background:#9ccbdf;
+*/}
 
 #right_nav{
     position:absolute;
@@ -280,18 +287,40 @@ table .selected{
     left:41%;
     width:58.5%;
     float:left;
-    background:#79c0df;
-    border-left: 1px black solid;
+ /*   background:#79c0df;
+ */   border-left: 1px black solid;
 }
 
 #gradesheets_container_header, #gradesheets_container_approved_header, #gradesheets_container_disapproved_header{
     position:absolute;
-    background:#145d72;
+    background:rgba(23,93,114,1);
     height:29.5%;
     width:8%;
     margin-left:1%;
+    margin-top:1%;
     color: white;
     text-align: center;
+
+
+
+    border-radius:5px;
+
+
+}
+
+.bg{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:
+        -webkit-gradient(
+            linear,
+            left top, left bottom,
+            from(rgba(255,255,255,0.1)),
+            to(rgba(255,255,255,0.3))
+        );
+    border-radius:5px;
+    z-index:1;
 }
 
 #gradesheets_container_header img, #gradesheets_container_approved_header img, #gradesheets_container_disapproved_header img{
@@ -302,10 +331,11 @@ table .selected{
     width:80%;
     height:27%;
     margin-left:10%;
-    margin-bottom:1%;
+    margin-top:1%;
     background:#ffe085;
     overflow: hidden;
     padding: 1.5%;
+    border-radius:5px;
 }
 
 .slimscroll{
