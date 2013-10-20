@@ -115,8 +115,6 @@
                 height:'auto'
             });
 
-            //add grades to the gradesheet table
-                //make it hidden at first and could be shown when clicked like in toggleable asdfasdf
         }
 
         function arrange_gradesheets(arrange_by, parent_id,index){
@@ -143,9 +141,6 @@
                 search_gradesheet("gradesheets_container", "PENDING",1);
                 search_gradesheet("gradesheets_container_approved", "APPROVED",2);
                 search_gradesheet("gradesheets_container_disapproved","DISAPPROVED",3);
-
-                //    console.log(data);
-//                data = JSON.parse(data);
             });
         }
 

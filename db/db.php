@@ -339,9 +339,29 @@
                             section = '" . $data['section'] . "'"; //-----------------------EDIT NEXT
             $this->result = mysqli_query($this->conn,$this->query);
 
+            //update plan_of_study grades of students
+            $this->query = "UPDATE plan_of_study pos
+                            INNER JOIN grades g ON (g.student_no = pos.student_no AND g.course_code = pos.course_code)
+                            SET pos.grade = g.grade";
+
+            $this->result = mysqli_query($this->conn,$this->query);
+
             $this->close();
 
             return json_encode(mysqli_fetch_all($this->result, MYSQLI_ASSOC));
+        }
+
+        function get_remarks(){
+            $this->connect();
+
+            $this->query = "SELECT Course_code, Remarks FROM grades natural join gradesheet
+                            WHERE student_no = '{$_SESSION['username']}' AND Remarks != ''
+                            AND status = 'APPROVED'";
+
+            $this->result = mysqli_query($this->conn,$this->query);
+
+            $this->close();
+            return mysqli_fetch_all($this->result, MYSQLI_ASSOC);
         }
 
         function get_plan($year,$sem){
