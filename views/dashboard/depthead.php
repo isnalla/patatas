@@ -20,7 +20,7 @@
         <div id="gradesheets_container_disapproved"></div>
     </div>
 
-    <div id="right_nav">
+    <div id="right_nav" hidden="hidden">
         <h3 id="grades_info"></h3>
         <div id="grades_container"></div>
     </div>
@@ -147,7 +147,7 @@
         function show_grades(subject, section, lecturer){
             //highlight row on click
 //          //console.log(data);
-            $("#right_nav").hide("slide", { direction: "right" }, 100);
+            $("#right_nav").hide("slide", { direction: "left" }, 300);
             var data = {'Course_code':subject ,'Section':section, 'Name':lecturer};
 
             $("#grades_info").html(subject + " " + section);

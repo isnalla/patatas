@@ -1,7 +1,10 @@
 body{
     background:white;
     background-image:url("/img/bg6.jpg");
+    /*This image, which was originally posted to Flickr.com, was uploaded to Commons using Flickr upload bot on 05:32, 7 April 2011 (UTC) by Moray An Par*/
     background-size: 100%;
+    background-attachment:fixed;
+    font-family:Calibri;
 }
 
 #homepage-container{
@@ -148,6 +151,9 @@ body{
     clear:right;
     margin:0 auto;
     z-index:100;
+
+    font-family:Arial;
+    text-align:center;
 }
 
 
@@ -278,7 +284,6 @@ table .selected{
     bottom:0;
     top:0px;
     float:left;
-    border-right:1px black solid;
 /*    background:#9ccbdf;
 */}
 
@@ -302,9 +307,6 @@ table .selected{
     margin-top:1%;
     color: white;
     text-align: center;
-
-
-
     border-radius:5px;
 
 
@@ -428,7 +430,7 @@ table .selected{
     width:90%;
     height:50%;
     margin-bottom: 5%;
-    background:rgba(250,200,50,0.5);
+    background:rgba(250,200,50,0.7);
     border-top:1px solid black;
 }
 
@@ -436,6 +438,22 @@ table .selected{
     background:rgba(0,0,0,0);
 }
 
+#student_pos_header img{
+    margin-top:30%;
+}
+#student_pos_header{
+    position:fixed;
+    background:rgba(23,93,114,1);
+    height:29.5%;
+    width:4%;
+    margin-left:-5%;
+    margin-top:1%;
+    color: white;
+    text-align: center;
+    border-radius:5px;
+
+
+}
 
 /*-------------------------------------------------------------------------*/
 
