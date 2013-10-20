@@ -38,6 +38,7 @@ include("includes/header.php");
             var lecturerFilter = '';
             var subjectFilter = '';
             var departmentFilter = '';
+            var filterFilled = false;
             generate_gradesheet_table();
 
             function show_gradesheets(data){
@@ -103,28 +104,30 @@ include("includes/header.php");
                         $("#gradesheets_container  table").find("tr").siblings().addBack().removeClass("selected");
                         $(this).addClass("selected");
                     });
-                    console.log(info);
 
-                    var lecturers = [];
-                    var subjects = [];
-                    var departments = [];
+                    if(!filterFilled){
+                        var lecturers = [];
+                        var subjects = [];
+                        var departments = [];
 
-                    for(i=0; i < info.length; i++){
-                        console.log(lecturers.indexOf(info[i]['Lecturer']));
-                        if(lecturers.indexOf(info[i]['Lecturer']) == -1) //prevents duplicates
-                            lecturers.push(info[i]['Lecturer']);
-                        if(subjects.indexOf(info[i]['Course_code']) == -1)
-                        subjects.push(info[i]['Course_code']);
-                        if(departments.indexOf(info[i]['Department']) == -1)
-                            departments.push(info[i]['Department']);
+                        for(i=0; i < info.length; i++){
+                            console.log(lecturers.indexOf(info[i]['Lecturer']));
+                            if(lecturers.indexOf(info[i]['Lecturer']) == -1) //prevents duplicates
+                                lecturers.push(info[i]['Lecturer']);
+                            if(subjects.indexOf(info[i]['Course_code']) == -1)
+                                subjects.push(info[i]['Course_code']);
+                            if(departments.indexOf(info[i]['Department']) == -1)
+                                departments.push(info[i]['Department']);
+                        }
+                        var filters = {
+                            'Lecturers': lecturers,
+                            'Subjects': subjects,
+                            'Departments': departments
+                        };
+
+                        fill_filters(filters);
+                        filterFilled = true;
                     }
-                    var filters = {
-                        'Lecturers': lecturers,
-                        'Subjects': subjects,
-                        'Departments': departments
-                    };
-
-                    fill_filters(filters);
                 });
             }
 
