@@ -343,6 +343,19 @@
 
             return json_encode(mysqli_fetch_all($this->result, MYSQLI_ASSOC));
         }
+
+        function get_plan($year,$sem){
+            $this->connect();
+
+            $this->query = "SELECT Course_code, Units, Grade FROM plan_of_study WHERE Student_no = '{$_SESSION['username']}'".
+                            " AND year LIKE '{$year}%' AND sem LIKE '{$sem}%'";
+
+            $this->result = mysqli_query($this->conn,$this->query);
+
+            $this->close();
+
+            return mysqli_fetch_all($this->result, MYSQLI_ASSOC);
+        }
 	}
      $db = new Database();
     //nageeror kase tsaka di ko alam kung para saan to kaya cinomment out ko muna
