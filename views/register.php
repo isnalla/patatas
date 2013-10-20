@@ -33,3 +33,74 @@
         </div>
         <button type="submit" class="submit-button" id="register" name="register" value="register">Register</button>
     </form>
+
+
+<script>
+    window.onload = function(){
+        myform.onsubmit = checkAll;
+    }
+
+    function validateUname(){
+        str = $("");
+        if(str == "")
+            msg = "Fill this up.";
+
+
+        else if(str.match(/^[0-9]{4}-[0-9]{5}$/))
+            msg = "Valid";
+
+        else
+            msg = "XXXX-XXXXX";
+
+        if(msg =="Valid")
+            return true;
+
+        return false;
+    }
+
+    function validateSname(){
+        str = $("");
+        if(str == "")
+            msg = "Fill this up.";
+
+
+        else if(str.match(/^[A-Za-z]+$/))
+            msg = "Valid";
+
+        else
+            msg = "";
+
+        if(msg =="Valid")
+            return true;
+
+        return false;
+    }
+
+    function validateFname(){
+        str = $("");
+        if(str == "")
+            msg = "Fill this up.";
+
+
+        else if(str.match(/^[A-Za-z]+$/))
+            msg = "Valid";
+
+        else
+            msg = "";
+
+        if(msg =="Valid")
+            return true;
+
+        return false;
+    }
+
+
+    function checkAll(){
+        if(validateUname() && validateSname() && validateFname())
+            return true;
+
+        return false;
+    }
+
+
+</script>

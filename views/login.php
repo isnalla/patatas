@@ -60,7 +60,7 @@
             <!-- HEADER END -->
             <!-- CONTENT START -->
             <div id="index-content" name="content">
-                <!--div id="article-container">
+                <div id="article-container">
                     <div class="article-header">
                         <div>
                             <img src = "/img/article_header_1.png"/>
@@ -111,7 +111,7 @@
                             tellus dui, quis posuere diam ultricies ac.
                         </p>
                     </div>
-                </div-->
+                </div>
                 <div id="register-container">
                     <?php include "register.php" ?>
                 </div>
@@ -124,6 +124,7 @@
                 <h3>&copy;ef5lsystemtwo 2013</h3>
             </div>
 		<!-- FOOTER END -->
-        </div>
-	</body>
+
+       </div>
+    </body>
 </html>
