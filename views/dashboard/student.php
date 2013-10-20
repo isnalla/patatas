@@ -7,9 +7,11 @@ include("includes/header.php");
 		<title>Student Dashboard</title>
 	</head>
 	<body>
-		Plan of Study
+        <h3>Plan of Study</h3>
+
 		<br />
 		<div id="plan-of-study-container">
+            <div id="inner-div">
             <table id="plan-of-study-table">
                 <?php
                     include "../db/db.php";
@@ -73,6 +75,8 @@ include("includes/header.php");
                     }
                 ?>
             </table>
+        </div>
+
 		</div>
 	</body>
 </html>
