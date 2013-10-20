@@ -191,7 +191,7 @@ if(isset($_POST['submit'])){
                 "<select class=\"grade_dropdown\">" +
                     "<option>1.0</option><option>1.25</option><option>1.5</option><option>1.75</option>" +
                     "<option>2.0</option><option>2.25</option><option>2.5</option><option>2.75</option>" +
-                    "<option>3.0</option><option>4.0</option><option>5.0</option>" +
+                    "<option>3.0</option><option>4.0</option><option>5.0</option><option>INC</option>" +
                 "</select>";
 
             //initialize grades table
@@ -226,12 +226,12 @@ if(isset($_POST['submit'])){
                         "</td>"+
                         "</tr>"
                 );
-                $('#add_grade_button').on('click',function(){
+                $('#add_grade_button').on('click',function(info){
                     var data = {
                         'Lecturer': $.trim($('#user-name').text()),
                         'Student_no':$('#new_student_no').val(),
                         'Course_code':$('#subject').text(),
-                        'Section':$('#section').text(),
+                        'Section':$('#section_head').text(),
                         'Grade':$("#new_grade").val(),
                         'Remarks':$('#new_remarks').val()
                     };
@@ -275,7 +275,7 @@ if(isset($_POST['submit'])){
                         'Old_student_no': originalData.Student_no,
                         'New_student_no': buttonRow.find('input').val(),
                         'Course_code':$('#subject').text(),
-                        'Section':$('#section').text(),
+                        'Section':$('#section_head').text(),
                         'Grade': buttonRow.find('select').val(),
                         'Remarks': buttonRow.find('input')[1].value
                     };

@@ -54,8 +54,8 @@
         }
 
         function show_gradesheets(container,index){
-            console.log(gradesheets);
-            console.log(container);
+            //console.log(gradesheets);
+            //console.log(container);
             $("#"+container).html(
                 "<div class='slimscroll'>" +
                 "<table id=\"gradesheets_table\">" +
@@ -86,10 +86,10 @@
                 if(container == "gradesheets_container"){
                     $("#"+container+"  table > tbody >tr:nth-child(" + (i+1) + ")").next().append(
                         "<td>" +
-                        "<button class = 'submit-button' onclick = 'update_gradesheet("+'"'+gradesheets[index][i].Section+'"'+","+'"'+gradesheets[index][i].Course_code+'"'+","+'"'+"APPROVED"+'"'+")'>Approve</button>" +
+                        "<button class = 'submit-button' onclick = 'update_gradesheet("+'"'+gradesheets[index][i].Lecturer+'"'+","+'"'+gradesheets[index][i].Section+'"'+","+'"'+gradesheets[index][i].Course_code+'"'+","+'"'+"APPROVED"+'"'+")'>Approve</button>" +
                         "</td>" +
                         "<td>" +
-                        "<button class = 'submit-button' onclick = 'update_gradesheet("+'"'+gradesheets[index][i].Section+'"'+","+'"'+gradesheets[index][i].Course_code+'"'+","+'"'+"DISAPPROVED"+'"'+")'>Disapprove</button>" +
+                        "<button class = 'submit-button' onclick = 'update_gradesheet("+'"'+gradesheets[index][i].Lecturer+'"'+","+'"'+gradesheets[index][i].Section+'"'+","+'"'+gradesheets[index][i].Course_code+'"'+","+'"'+"DISAPPROVED"+'"'+")'>Disapprove</button>" +
                         "</td>"
                     );
                 }
@@ -135,9 +135,10 @@
             show_gradesheets(parent_id,index);
         }
 
-        function update_gradesheet(section, course_code, status){
-            var data = {'course_code':course_code, 'section':section, 'status':status};
+        function update_gradesheet(lecturer,section, course_code, status){
 
+            var data = {'lecturer':lecturer,'course_code':course_code, 'section':section, 'status':status};
+            console.log(data);
             $.post("/logic/depthead.php/",{'method':'update_gradesheet', 'data':data},function(data){
                 search_gradesheet("gradesheets_container", "PENDING",1);
                 search_gradesheet("gradesheets_container_approved", "APPROVED",2);
@@ -150,7 +151,7 @@
 
         function show_grades(subject, section, lecturer){
             //highlight row on click
-//            console.log(lecturer);
+//          //console.log(data);
             $("#right_nav").hide("slide", { direction: "right" }, 100);
             var data = {'Course_code':subject ,'Section':section, 'Name':lecturer};
 

@@ -66,7 +66,7 @@ include("includes/header.php");
                                         echo "</td>";
                                         echo "<td>";
                                             if( $semplan[$r]['Grade'] == null )
-                                                echo "----";
+                                                echo "_____";
                                             else echo $semplan[$r]['Grade'];
                                         echo "</td>";
                                     echo "</tr>";

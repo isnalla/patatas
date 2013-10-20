@@ -35,39 +35,6 @@ include("includes/header.php");
         $(document).ready(function(){
             document.title = 'College Secretary Dashboard'
 
-            fill_filters();
-
-            function fill_filters(){
-                $.post("/logic/collegesec.php",{'method':'get_filters'},function(data){
-
-                    var filters = JSON.parse(data);
-                    var i;
-
-
-                    //fill Lecturers filter
-                    for(i=0; i < filters.Lecturers.length; i++){
-                        $('#filter-lecturer').append(
-                            "<option>"+filters.Lecturers[i]+"</option>"
-                        );
-                    }
-
-                    //fill Subjects filter
-                    for(i=0; i < filters.Subjects.length; i++){
-                        $('#filter-course').append(
-                            "<option>"+filters.Subjects[i]+"</option>"
-                        );
-                    }
-
-                    //fill Departments filter
-                    for(i=0; i < filters.Departments.length; i++){
-                        $('#filter-department').append(
-                            "<option>"+filters.Departments[i]+"</option>"
-                        );
-                    }
-                    $('.filter').on('change',function(data){show_gradesheets(data);});
-                 });
-            }
-
             var lecturerFilter = '';
             var subjectFilter = '';
             var departmentFilter = '';
@@ -179,6 +146,38 @@ include("includes/header.php");
 
                     $("#gradesheets_container  table").append("</table></div>");
 
+                });
+            }
+
+            fill_filters();
+
+            function fill_filters(){
+                $.post("/logic/collegesec.php",{'method':'get_filters'},function(data){
+
+                    var filters = JSON.parse(data);
+                    var i;
+
+                    //fill Lecturers filter
+                    for(i=0; i < filters.Lecturers.length; i++){
+                        $('#filter-lecturer').append(
+                            "<option>"+filters.Lecturers[i]+"</option>"
+                        );
+                    }
+
+                    //fill Subjects filter
+                    for(i=0; i < filters.Subjects.length; i++){
+                        $('#filter-course').append(
+                            "<option>"+filters.Subjects[i]+"</option>"
+                        );
+                    }
+
+                    //fill Departments filter
+                    for(i=0; i < filters.Departments.length; i++){
+                        $('#filter-department').append(
+                            "<option>"+filters.Departments[i]+"</option>"
+                        );
+                    }
+                    $('.filter').on('change',function(data){show_gradesheets(data);});
                 });
             }
 

@@ -157,8 +157,8 @@
         function get_gradesheets_filtered($data){
             $this->connect();
 
-            $this->query = "SELECT Department,Course_code, Section, Lecturer  FROM gradesheet NATURAL JOIN subject".
-                " WHERE lecturer LIKE '%{$data[0]}' AND Course_code LIKE '%{$data[1]}' AND ".
+            $this->query = "SELECT Department,Course_code, Section, Lecturer, Status  FROM gradesheet NATURAL JOIN subject".
+                " WHERE STATUS = 'APPROVED' AND lecturer LIKE '%{$data[0]}' AND Course_code LIKE '%{$data[1]}' AND ".
                 "       Department LIKE '%{$data[2]}'".
                 " AND Department IN (select department_name from department".  //this part is the query for get_departments
                             " where college_name = ".
@@ -297,7 +297,7 @@
                 echo "<script>alert('Upload failed! Possible duplicate! (Temporary error reporter)');</script>";
                 echo mysqli_error($this->conn);
             }
-            else echo "Upload success!";
+            else echo "<script>alert('Upload Success!');</script>";
 
             $this->close();
         }
@@ -334,7 +334,7 @@
             $this->connect();
 
             $this->query = "UPDATE gradesheet SET status ='" . $data['status'] . "'
-                            WHERE
+                            WHERE lecturer = '{$data['lecturer']}' AND
                             course_code = '" . $data['course_code'] . "' AND
                             section = '" . $data['section'] . "'"; //-----------------------EDIT NEXT
             $this->result = mysqli_query($this->conn,$this->query);
