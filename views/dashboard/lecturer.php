@@ -33,7 +33,7 @@ if(isset($_POST['submit'])){
         <div id="gradesheets_container"></div>
 
         <!-- yung enctype para yan mapunta sa $_FILES ung info ng gustong iupload na file -->
-        <div id="gradesheets_container_header"><img src="/img/GRADESHEETS.png"/></div>
+        <div id="gradesheets_container_header"><img src="/img/upload.png"/></div>
         <div id="create_gs">
             <h3> Create a Grade Sheet</h3>
             <form action="" method="post" enctype="multipart/form-data">

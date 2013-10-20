@@ -7,10 +7,8 @@ include("includes/header.php");
 		<title>Student Dashboard</title>
 	</head>
 	<body>
-        <h3>Plan of Study</h3>
-
-		<br />
 		<div id="plan-of-study-container">
+            <div id="student_pos_header"><img src="/img/pos.png"/></div>
             <div id="inner-div">
                 <table id="plan-of-study-table">
                     <?php
