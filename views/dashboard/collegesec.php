@@ -3,16 +3,9 @@ include("includes/header.php");
 ?>
 
     <!-- Temporary css-->
-    <style>
-        #filters-container{
 
-            position:absolute;
-            top:50px;
-            left:125px;
-        }
-    </style>
-    <br />
-
+<div id="logged">
+    <div id="left_nav">
     <div id="filters-container">
         <label for="filters-container">Filter by:</label><br/>
         <label for="filter-lecturer">Lecturer</label>
@@ -31,7 +24,8 @@ include("includes/header.php");
 
     <div id="gradesheets_container_header"><img src="/img/GRADESHEETS.png"/></div>
     <div id="gradesheets_container"></div>
-
+    </div>
+</div>
     <script>
         $(document).ready(function(){
             document.title = 'College Secretary Dashboard'
