@@ -6,24 +6,30 @@ include("includes/header.php");
 if(isset($_POST['submit'])){
 
     $grades = null;
+    $errors = array();
 
-    if($_FILES["file"]["tmp_name"] != ""){
-        $csv = fopen($_FILES["file"]["tmp_name"],"r");
+    if($_FILES["file"]["tmp_name"] != "" && preg_match('/^%\.csv$/',$_FILES["file"]["tmp_name"])){
+        $csv = fopen(filter_var($_FILES["file"]["tmp_name"],FILTER_SANITIZE_STRING),"r");
 
         for($i=0; !feof($csv); $i++){
             $grade = explode(",",fgets($csv));
-            $grades[$i]["student_no"] = $grade[0];
-            $grades[$i]["grade"] = $grade[1];
-            $grades[$i]["remarks"] = $grade[2];
+            $grades[$i]["student_no"] = filter_var($grade[0],FILTER_SANITIZE_STRING);
+            $grades[$i]["grade"] = filter_var($grade[1],FILTER_SANITIZE_STRING);
+            $grades[$i]["remarks"] = filter_var($grade[2],FILTER_SANITIZE_STRING);
         }
         fclose($csv);
     }
-    $course_code = $_POST['course_code'];
-    $section = $_POST['section'];
+    else array_push($errors,'Invalid file.');
+
+    $course_code = filter_var($_POST['course_code'],FILTER_SANITIZE_STRING);
+    $section = filter_var($_POST['section'],FILTER_SANITIZE_STRING);
 
     //parse grades from csv file into array of grades[student_no,grade,remarks]"
-
-    $db->insert_gradesheet($course_code,$section,$grades);
+    if(count($errors) == 0 || $_FILES["file"]["tmp_name"] == "")
+        $db->insert_gradesheet($course_code,$section,$grades);
+    else {
+        echo "<script>alert('Invalid file');</script>";
+    }
 }
 ?>
 
@@ -214,7 +220,7 @@ if(isset($_POST['submit'])){
                 $("#grades_table tr:first").after(
                     "<tr>" +
                         "<td>"+
-                        "<input id=\"new_student_no\" type=\"text\" />" +
+                        "<input id=\"new_student_no\" type=\"text\" required/>" +
                         "</td>"+
                         "<td>"+ gradeDropdown.replace("<select","<select id=\"new_grade\"") + "</td>"+
                         "<td>"+
@@ -226,6 +232,12 @@ if(isset($_POST['submit'])){
                         "</td>"+
                         "</tr>"
                 );
+                $('#new_student_no').on('blur',function(){
+                    if(!$(this).val().match(/^20\d\d-\d\d\d\d\d$/)){
+                        alert('Invalid Student # Format');
+                        $(this).val("");
+                    }
+                });
                 $('#add_grade_button').on('click',function(info){
                     var data = {
                         'Lecturer': $.trim($('#user-name').text()),
@@ -336,6 +348,18 @@ if(isset($_POST['submit'])){
                 height:'100%'
             });
         }
+    </script>
+    <script>
+        /******INPUT VALIDATION*******/
+        $(document).ready(function(){
+            $('#section').on('keyup',function(){
+                $('#section').val($('#section').val().toUpperCase());
+                if($('#section').val().match(/[^A-Z0-9]/)){
+                    var removedLast = $('#section').val().substr(0,$('#section').val().length - 1)
+                    $('#section').val(removedLast);
+                }
+            })
+        });
     </script>
 <?php
     include("/includes/footer.php");

@@ -50,25 +50,26 @@ include("includes/header.php");
                                         echo $numbers[$j]." Semester"."</th>";
                                         $sem = $j+1;
                                     }
+                                    echo "<th></th>";
+                                    echo "<th></th>";
+                                echo "</tr>";
 
+                                $semplan = $db->get_plan($i+1,$sem);
+                                for($r = 0; $r < count($semplan); $r++){
+                                    echo "<tr>";
+                                        echo "<td>";
+                                            echo $semplan[$r]['Course_code'];
+                                        echo "</td>";
+                                        echo "<td>";
+                                            echo $semplan[$r]['Units'];
+                                        echo "</td>";
+                                        echo "<td>";
+                                            if( $semplan[$r]['Grade'] == null )
+                                                echo "_____";
+                                            else echo $semplan[$r]['Grade'];
+                                        echo "</td>";
                                     echo "</tr>";
-
-                                    $semplan = $db->get_plan($i+1,$sem);
-                                    for($r = 0; $r < count($semplan); $r++){
-                                        echo "<tr>";
-                                            echo "<td>";
-                                                echo $semplan[$r]['Course_code'];
-                                            echo "</td>";
-                                            echo "<td>";
-                                                echo $semplan[$r]['Units'];
-                                            echo "</td>";
-                                            echo "<td>";
-                                                if( $semplan[$r]['Grade'] == null )
-                                                    echo "_____";
-                                                else echo $semplan[$r]['Grade'];
-                                            echo "</td>";
-                                        echo "</tr>";
-                                    }
+                                }
                             echo "</table>";
                         }
                     ?>

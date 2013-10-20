@@ -141,9 +141,9 @@
                             WHERE
                             gs.course_code = s.course_code AND
                             s.department = d.department_name AND
-                            d.department_head = '" . $_SESSION["name"] . "' AND
-                            gs.course_code LIKE '%" . $data['course_code'] . "%' AND
-                            gs.status = '". $data['status'] ."'
+                            d.department_head = '" . filter_var($_SESSION["name"],FILTER_SANITIZE_STRING) . "' AND
+                            gs.course_code LIKE '%" . filter_var($data['course_code'],FILTER_SANITIZE_STRING) . "%' AND
+                            gs.status = '". filter_var($data['status'],FILTER_SANITIZE_STRING) ."'
                             ORDER BY lecturer";
 
             $this->result = mysqli_query($this->conn,$this->query);
@@ -216,7 +216,21 @@
             $this->close();
 
             //returns an array of users
-            echo json_encode(mysqli_fetch_all($this->result, MYSQLI_ASSOC));
+            return json_encode(mysqli_fetch_all($this->result, MYSQLI_ASSOC));
+        }
+
+        function download_gradesheet($data){
+            ob_start();
+            $grades = json_decode($this->get_grades($data));
+            ob_end_clean();
+
+            $gradesCSV = '';
+            for($i = 0; $i < count($grades); $i++){
+                $gradesCSV .= $grades[$i]->Course_code.','.$grades[$i]->Grade.','.$grades[$i]->Remarks.'\n';
+            }
+            header('Content-type: text/csv');
+            header('Content-disposition: attachment; filename="'.$data['Filename'].'"');
+            echo $gradesCSV;
         }
 
         function insert_grade($data){
@@ -294,7 +308,7 @@
 
             //temporary error reporter
             if(mysqli_error($this->conn)){
-                echo "<script>alert('Upload failed! Possible duplicate! (Temporary error reporter)');</script>";
+                echo "<script>alert('Upload failed! There is a possible duplicate gradesheet.');</script>";
                 echo mysqli_error($this->conn);
             }
             else echo "<script>alert('Upload Success!');</script>";

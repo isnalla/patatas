@@ -14,6 +14,11 @@ class Depthead{
         echo $res;
     }
 
+    function download_gradesheet($data){
+        $db = new Database();
+        $db->download_gradesheet($data);
+    }
+
     function update_gradesheet($data){
         $db = new Database();
         $res = $db->update_gradesheet($data);

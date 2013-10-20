@@ -2,6 +2,7 @@
 <?php
     include("includes/header.php");
 ?>
+
 <div id="logged">
     <div id="left_nav">
         <div id = "depthead_search_bar" >
@@ -54,8 +55,6 @@
         }
 
         function show_gradesheets(container,index){
-            //console.log(gradesheets);
-            //console.log(container);
             $("#"+container).html(
                 "<div class='slimscroll'>" +
                 "<table id=\"gradesheets_table\">" +
@@ -83,6 +82,12 @@
 //                    "</tr>"
                 );
 
+                if(container == "gradesheets_container_approved"){
+                    $("#gradesheets_container_approved tr:nth-child(" + (i+1) + ")").next().append(
+                        "<td><button class ='download-button' onclick='download_gradesheet(event)' >Download</button></td>"
+                    );
+                }
+
                 if(container == "gradesheets_container"){
                     $("#"+container+"  table > tbody >tr:nth-child(" + (i+1) + ")").next().append(
                         "<td>" +
@@ -93,28 +98,44 @@
                         "</td>"
                     );
                 }
-
             }
 
-                $("#"+container).append("</table></div>");
+            $("#"+container).append("</table></div>");
 
-                $("#"+container+"  table").find('tr').next().on('click',function(){
-                    show_grades($(this).find('td').html() ,$(this).attr('value'),$(this).children("td").next().next().html());
-                    $("#gradesheets_container  table").find("tr").siblings().addBack().removeClass("selected");
-                    $("#gradesheets_container_approved  table").find("tr").siblings().addBack().removeClass("selected");
-                    $("#gradesheets_container_disapproved  table").find("tr").siblings().addBack().removeClass("selected");
-                    $(this).addClass("selected");
-                });
+            $("#"+container+"  table").find('tr').next().on('click',function(){
+                show_grades($(this).find('td').html() ,$(this).attr('value'),$(this).children("td").next().next().html());
+                $("#gradesheets_container  table").find("tr").siblings().addBack().removeClass("selected");
+                $("#gradesheets_container_approved  table").find("tr").siblings().addBack().removeClass("selected");
+                $("#gradesheets_container_disapproved  table").find("tr").siblings().addBack().removeClass("selected");
+                $(this).addClass("selected");
+            });
 
-                $("#"+container+"  table").find('tr').find('th').on('click', function(){
-                    arrange_gradesheets($(this).html(),container,index);
-                });
-
+            $("#"+container+"  table").find('tr').find('th').on('click', function(){
+                arrange_gradesheets($(this).html(),container,index);
+            });
 
            $('#' + container + " > .slimscroll").slimscroll({
                 height:'auto'
             });
 
+        }
+
+        function download_gradesheet(event){
+            var siblings = $(event.currentTarget).parent().siblings();
+            var subject = $(siblings[0]).text();
+            var section = $(siblings[1]).text();
+            var lecturer = $(siblings[2]).text();
+
+            var data = {
+                'Course_code':subject,
+                'Section':section,
+                'Name':lecturer,
+                'Filename': (subject+section).replace(' ','')+'.csv'
+            }
+
+            $.post("/logic/depthead.php",{'method':'download_gradesheet','data':data});
+
+            event.stopPropagation();
         }
 
         function arrange_gradesheets(arrange_by, parent_id,index){
