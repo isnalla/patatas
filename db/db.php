@@ -21,24 +21,39 @@
 
 		//returns an associative array of users
 		function get_users(){
-			$this->connect();
-
-			$this->query = "SELECT * FROM user";
-
-			$this->result = mysqli_query($this->conn,$this->query);
-
-			//var_dump(mysqli_fetch_all($this->result, MYSQLI_ASSOC));
-			$this->close();
-
-			//returns an array of users
-			return mysqli_fetch_all($this->result, MYSQLI_ASSOC);
-		}
-
-        function register_student($username,$firstname,$surname){
-            $password = $surname;
             $this->connect();
 
-            $this->query = "INSERT INTO user VALUES('STD','{$username}','{$surname}','".$firstname." ".$surname."')";
+            $this->query = "SELECT * FROM user";
+
+            $this->result = mysqli_query($this->conn,$this->query);
+
+            //var_dump(mysqli_fetch_all($this->result, MYSQLI_ASSOC));
+            $this->close();
+
+            //returns an array of users
+            return mysqli_fetch_all($this->result, MYSQLI_ASSOC);
+        }
+
+        function get_lecturers(){
+            $this->connect();
+
+            $this->query = "SELECT name FROM user where role = 'LEC'";
+
+            $this->result = mysqli_query($this->conn,$this->query);
+            for($i = 0; $temp = mysqli_fetch_row($this->result)[0];$i++)
+                $lecturers[$i] = $temp;
+
+            $this->close();
+
+            //returns an array of users
+            return $lecturers;
+        }
+
+        function register_student($username,$firstname,$surname){
+            $password = sha1($surname);
+            $this->connect();
+
+            $this->query = "INSERT INTO user VALUES('STD','{$username}','{$password}','".$firstname." ".$surname."')";
 
             mysqli_query($this->conn,$this->query);
 
@@ -46,7 +61,7 @@
                 echo "<script>alert('Registration failed! Error: ".mysqli_error($this->conn)."'); </script>";
             }
             else{
-                echo "Registration successful! <a href=\"login.php\">Go back to login</a>";
+                echo "Registration successful!";
             }
 
 
@@ -113,6 +128,20 @@
 
             $this->close();
             echo json_encode(mysqli_fetch_all($this->result, MYSQLI_ASSOC));
+        }
+
+        function get_gradesheets_filtered($data){
+            $this->connect();
+
+            $this->query = "SELECT Department,Course_code, Section, Lecturer  FROM gradesheet NATURAL JOIN subject".
+                " WHERE lecturer LIKE '%{$data[0]}%' AND Course_code LIKE '%{$data[1]}%' AND ".
+                "       Department LIKE '%{$data[2]}%' ORDER BY Course_code";
+
+            $this->result = mysqli_query($this->conn,$this->query);
+
+            $this->close();
+            echo json_encode(mysqli_fetch_all($this->result, MYSQLI_ASSOC));
+
         }
 
         //wala atang overloading sa php =____= so ganito na lang
@@ -255,6 +284,20 @@
 
             return json_encode(mysqli_fetch_all($this->result, MYSQLI_ASSOC));
 
+        }
+
+        function get_departments(){
+            $this->connect();
+
+            $this->query = "SELECT department_name FROM department";
+            $this->result = mysqli_query($this->conn,$this->query);
+
+            for($i = 0; $temp = mysqli_fetch_row($this->result)[0];$i++)
+                $departments[$i] = $temp;
+
+            $this->close();
+
+            return $departments;
         }
 
         function update_gradesheet($data){
