@@ -4,29 +4,29 @@ include("includes/header.php");
 
     <!-- Temporary css-->
 
-<div id="logged">
-    <div id="left_nav">
-        <div id="filters-container">
-            <label for="filters-container">Filter by:</label><br/>
-            <label for="filter-lecturer">Lecturer</label>
-            <select id="filter-lecturer" class="filter" name="filter-lecturer">
-                <option></option>
-            </select>
-            <label for="filter-course">Course Code</label>
-            <select id="filter-course" class="filter" name="filter-course" >
-                <option></option>
-            </select>
-            <label for="filter-department">Department</label>
-            <select id="filter-department" class="filter" name="filter-department">
-                <option></option>
-            </select>
+    <div id="logged">
+        <div id="left_nav">
+            <div id="filters-container">
+                <label for="filters-container">Filter by:</label><br/>
+                <label for="filter-lecturer">Lecturer</label>
+                <select id="filter-lecturer" class="filter" name="filter-lecturer">
+                    <option></option>
+                </select>
+                <label for="filter-course">Course Code</label>
+                <select id="filter-course" class="filter" name="filter-course" >
+                    <option></option>
+                </select>
+                <label for="filter-department">Department</label>
+                <select id="filter-department" class="filter" name="filter-department">
+                    <option></option>
+                </select>
+            </div>
+
+            <div id="gradesheets_container_header"><img src="/img/GRADESHEETS.png"/></div>
+            <div id="gradesheets_container"></div>
+
         </div>
-
-        <div id="gradesheets_container_header"><img src="/img/GRADESHEETS.png"/></div>
-        <div id="gradesheets_container"></div>
-
     </div>
-</div>
     <script>
         $(document).ready(function(){
             document.title = 'College Secretary Dashboard'
@@ -60,10 +60,7 @@ include("includes/header.php");
                         );
                     }
 
-                    $('.filter  option').on('click',function(data){
-                        show_gradesheets(data);
-
-                    });
+                    $('.filter option').on('click',function(data){show_gradesheets(data);});
                  });
             }
 
@@ -90,9 +87,8 @@ include("includes/header.php");
                 $.post("/logic/collegesec.php",{'method':'get_gradesheets_filtered','data':data},function(data){
                     var info = JSON.parse(data);
                     var i;
-                    console.log(data);
+
                     $('#gradesheets_container').html(
-                        "<div class='slimscroll'>" +
                         "<table id=\"gradesheets_table\">" +
                             "<tr>" +
                             "<th>Department</th>" +
@@ -100,14 +96,13 @@ include("includes/header.php");
                             "<th>Section</th>" +
                             "<th>Lecturer</th>" +
                             "</tr>" +
-                            "</table>"+
-                            "</div>"
+                            "</table>"
                     );
 
                     $('#gradesheets_table th').on('click',function(data){ sortTable(data);})
 
                     for(i = 0; i < info.length; i++){
-                        $("#gradesheets_container table").append(
+                        $("#gradesheets_table").append(
                             "<tr>" +
                                 "<td>" +
                                 info[i].Department +
@@ -121,16 +116,10 @@ include("includes/header.php");
                                 "<td>" +
                                 info[i].Lecturer +
                                 "</td>" +
-                            "</tr>"
+                                "</tr>"
                         );
                     }
-                    $(".slimscroll").slimscroll({
-                        height:'100%'
-                    });
-
-
                 });
-
             }
 
             function sortTable(data){
