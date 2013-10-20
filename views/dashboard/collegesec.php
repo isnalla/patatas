@@ -35,6 +35,7 @@ include("includes/header.php");
 
             function fill_filters(){
                 $.post("/logic/collegesec.php",{'method':'get_filters'},function(data){
+
                     var filters = JSON.parse(data);
                     var i;
 
@@ -59,8 +60,8 @@ include("includes/header.php");
                             "<option>"+filters.Departments[i]+"</option>"
                         );
                     }
-
-                    $('.filter option').on('click',function(data){show_gradesheets(data);});
+                    console.log($('.filter option'))
+                    $('.filter').on('change',function(data){show_gradesheets(data);});
                  });
             }
 
@@ -70,8 +71,8 @@ include("includes/header.php");
             generate_gradesheet_table();
 
             function show_gradesheets(data){
-                var filterName = data.target.parentElement.name;
-                var option = data.target.value;
+                var filterName = data.target.name;
+                var option = $(data.target[data.target.selectedIndex]).text();
 
                 if(filterName == 'filter-lecturer')
                     lecturerFilter = option;

@@ -134,8 +134,8 @@
             $this->connect();
 
             $this->query = "SELECT Department,Course_code, Section, Lecturer  FROM gradesheet NATURAL JOIN subject".
-                " WHERE lecturer LIKE '%{$data[0]}%' AND Course_code LIKE '%{$data[1]}%' AND ".
-                "       Department LIKE '%{$data[2]}%'".
+                " WHERE lecturer LIKE '%{$data[0]}' AND Course_code LIKE '%{$data[1]}' AND ".
+                "       Department LIKE '%{$data[2]}'".
                 " AND Department IN (select department_name from department".  //this part is the query for get_departments
                             " where college_name = ".
                             "(select college_name from college where college_sec = '{$_SESSION['name']}'))";
@@ -143,7 +143,7 @@
             $this->result = mysqli_query($this->conn,$this->query);
 
             $this->close();
-           // echo $this->query;
+           //echo $this->query;
             echo json_encode(mysqli_fetch_all($this->result, MYSQLI_ASSOC));
 
         }
