@@ -16,7 +16,7 @@
         function get_filters(){
             $db = new Database();
             $res['Lecturers'] = $db->get_lecturers();
-            $res['Subjects'] = $db->get_subjects();
+            $res['Subjects'] = $db->get_subjects_by_department();
             $res['Departments'] = $db->get_departments();
 
             echo json_encode($res);

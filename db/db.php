@@ -71,8 +71,31 @@
         function get_subjects(){
             $this->connect();
 
-            $this->query = "SELECT Course_code from subject where department IN (select department_name from department".  //this part is the query for get_departments
-                " where college_name = ".
+            $this->query = "SELECT Course_code from subject";
+
+            $this->result = mysqli_query($this->conn,$this->query);
+
+            for($i = 0; $temp = mysqli_fetch_row($this->result)[0];$i++)
+                $subjects[$i] = $temp;
+            //var_dump( $subjects);
+
+            if(mysqli_num_rows($this->result) != 0){ //no courses found in database
+                $this->close();
+                return $subjects;
+            }
+            else{
+                $this->close();
+                return false;
+            }
+
+            $this->close();
+        }
+
+        function get_subjects_by_department(){
+            $this->connect();
+
+            $this->query = "SELECT Course_code FROM subject WHERE department IN (select department_name from department".  //this part is the query for get_departments
+                " where college_name IN".
                 "(select college_name from college where college_sec = '{$_SESSION['name']}'))";
 
             $this->result = mysqli_query($this->conn,$this->query);
@@ -85,7 +108,7 @@
                 $this->close();
                 return $subjects;
             }
-            else{	//login success
+            else{
                 $this->close();
                 return false;
             }
