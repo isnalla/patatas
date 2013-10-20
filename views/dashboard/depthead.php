@@ -152,10 +152,10 @@
 //            console.log(lecturer);
             var data = {'Course_code':subject ,'Section':section, 'Name':lecturer};
 
+            $("#grades_info").html(subject + " " + section);
+
             $.post("/logic/lecturer.php",{'method':'get_grades','data':data},function(data){
                 data = JSON.parse(data);
-
-                $("#grades_info").html(data[0].Course_code + " " + data[0].Section);
 
                 $("#grades_container").html(
                     "<div class='slimscroll'>" +

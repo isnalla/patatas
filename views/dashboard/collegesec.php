@@ -26,6 +26,10 @@ include("includes/header.php");
             <div id="gradesheets_container"></div>
 
         </div>
+        <div id="right_nav">
+            <h3 id="grades_info"></h3>
+            <div id="grades_container"></div>
+        </div>
     </div>
     <script>
         $(document).ready(function(){
@@ -60,7 +64,6 @@ include("includes/header.php");
                             "<option>"+filters.Departments[i]+"</option>"
                         );
                     }
-                    console.log($('.filter option'))
                     $('.filter').on('change',function(data){show_gradesheets(data);});
                  });
             }
@@ -123,11 +126,51 @@ include("includes/header.php");
                         );
                     }
 
-
+                    $('#gradesheets_table tr').next().on('click',function(data){show_grades(data);});
                     $("#gradesheets_container .slimscroll").slimscroll({
                         height:'100%'
                     });
+                });
+            }
 
+            function show_grades(info){
+                //console.log(i);
+                var data = {'Course_code':$(info.currentTarget.cells[1]).text()
+                    ,'Section':$(info.currentTarget.cells[2]).text()
+                    , 'Name':$(info.currentTarget.cells[3]).text()};
+
+                $("#grades_info").html(data['Course_code'] + " " + data['Section']);
+
+                $.post("/logic/lecturer.php",{'method':'get_grades','data':data},function(data){
+                    data = JSON.parse(data);
+
+                    $("#grades_container").html(
+                        "<div class='slimscroll'>" +
+                            "<table id='grades_table' border = 1>" +
+                            "<tr>" +
+                            "<th>Student No</th>" +
+                            "<th>Grade</th>" +
+                            "<th>Remarks</th>" +
+                            "</tr>"
+                    );
+
+
+                    for(i = 0; i<data.length; i++)
+                        $("#grades_container  table").append(
+                            "<tr>" +
+                                "<td>" +
+                                data[i].Student_no +
+                                "</td>" +
+                                "<td>" +
+                                data[i].Grade+
+                                "</td>" +
+                                "<td>" +
+                                data[i].Remarks+
+                                "</td>" +
+                                "</tr>"
+                        );
+
+                    $("#gradesheets_container  table").append("</table></div>");
 
                 });
             }
