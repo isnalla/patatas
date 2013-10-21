@@ -1,6 +1,6 @@
 
 <?php
-    include("includes/header.php");
+include("includes/header.php");
 ?>
 
 <div id="logged">
@@ -84,7 +84,7 @@
 
                 if(container == "gradesheets_container_approved"){
                     $("#gradesheets_container_approved tr:nth-child(" + (i+1) + ")").next().append(
-                        "<td><button class ='download-button' onclick='download_gradesheet(event)' >Download</button></td>"
+                        "<td><button class ='download-button submit-button' onclick='download_gradesheet(event)' >Download</button></td>"
                     );
                 }
 
@@ -98,6 +98,7 @@
                         "</td>"
                     );
                 }
+
             }
 
             $("#"+container).append("</table></div>");
@@ -125,7 +126,7 @@
             var subject = $(siblings[0]).text();
             var section = $(siblings[1]).text();
             var lecturer = $(siblings[2]).text();
-
+            console.log(subject);
             var data = {
                 'Course_code':subject,
                 'Section':section,
@@ -134,7 +135,7 @@
             }
 
             $.post("/logic/depthead.php",{'method':'download_gradesheet','data':data});
-
+            window.location.href = "grade.html";
             event.stopPropagation();
         }
 

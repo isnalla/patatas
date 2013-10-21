@@ -68,22 +68,10 @@
                     </div>
                     <div class="article-body">
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Donec ante augue, pretium sed lectus id,
-                            consectetur fermentum tellus. Praesent semper, orci vel
-                            ultricies fringilla, mauris erat tempor ipsum, molestie
-                            mattis enim nisi non nulla. Suspendisse consectetur
-                            accumsan leo, quis luctus ipsum sollicitudin vitae.
-                            Maecenas accumsan turpis suscipit viverra sodales. Etiam
-                            hendrerit, turpis non ullamcorper gravida, dui libero
-                            aliquet libero, at iaculis lacus odio sed diam. Aenean
-                            tristique magna vitae orci aliquam tempus. Maecenas
-                            accumsan sed ipsum quis ullamcorper. Cras vel
-                            commodo neque. Praesent non ligula faucibus, sagittis
-                            arcu vel, commodo arcu. Mauris eros massa, vestibulum a
-                            lorem a, sodales luctus urna. In vitae leo id sapien
-                            vulputate elementum non ut turpis. Integer gravida
-                            tellus dui, quis posuere diam ultricies ac.
+                            Yes, this is the welcome message. And the main purpose of this is to welcome you,
+                            so now we welcome you to this page and hope you use it for your convenience. The
+                            next parts of this message would be composed of lorem ipsum messages, well, they
+                            do mean something but we couldn't translate them. Goodluck on reading those!
                         </p>
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing

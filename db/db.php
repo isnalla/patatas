@@ -226,11 +226,12 @@
 
             $gradesCSV = '';
             for($i = 0; $i < count($grades); $i++){
-                $gradesCSV .= $grades[$i]->Course_code.','.$grades[$i]->Grade.','.$grades[$i]->Remarks.'\n';
+                $gradesCSV .= $grades[$i]->Student_no .','.$grades[$i]->Grade.','.$grades[$i]->Remarks.'<br/>';
             }
             header('Content-type: text/csv');
             header('Content-disposition: attachment; filename="'.$data['Filename'].'"');
-            echo $gradesCSV;
+            header("Content-Length: ". filesize($data['Filename']).";");
+            return $gradesCSV;
         }
 
         function insert_grade($data){

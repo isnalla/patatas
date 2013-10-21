@@ -16,7 +16,15 @@ class Depthead{
 
     function download_gradesheet($data){
         $db = new Database();
-        $db->download_gradesheet($data);
+        $page = $db->download_gradesheet($data);
+        file_put_contents("../views/grade.html", $page);
+        header("Location: ../views/grade.html");
+
+
+        header("Cache-Control: public");
+        header("Content-Description: File Transfer");
+        header("Content-Transfer-Encoding: binary");
+        readfile("../views/grade.html");
     }
 
     function update_gradesheet($data){
